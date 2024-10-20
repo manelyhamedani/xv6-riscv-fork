@@ -91,3 +91,15 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// system call for fetch child processes of a process
+uint64 sys_child_processes(void) {
+  struct child_processes *cp;
+  struct child_processes kcp;
+  argaddr(0, (uint64 *) &cp);
+  struct proc *p = myproc();
+  copyin(p->pagetable, (char *) &kcp, (uint64) cp, sizeof(cp));
+  int xstat = child_processes(&kcp);
+  copyout(p->pagetable, (uint64) cp, (char *) &kcp, sizeof(kcp));
+  return xstat;
+}

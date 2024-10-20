@@ -5,6 +5,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+#include <stddef.h>
 
 struct cpu cpus[NCPU];
 
@@ -692,4 +693,33 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+
+int child_processes(struct child_processes *cp) {
+  struct proc *current_process = myproc();
+  struct proc *p, *parent;
+  int index = 0;
+
+  for (p = proc; p < &proc[NPROC]; p++) {
+    if (p->state == UNUSED) {
+      continue;
+}
+    parent = p->parent;
+
+    while (parent != NULL) {
+      if (parent == current_process) {
+        cp->count = cp->count + 1;
+        strncpy(cp->processes[index].name, p->name, sizeof(p->name));
+        cp->processes[index].pid = p->pid;
+        cp->processes[index].ppid = p->parent->pid;
+        cp->processes[index].state = p->state;
+        ++index;
+        break;
+      }
+      parent = parent->parent;
+    }
+  }
+
+  return 0;
 }
