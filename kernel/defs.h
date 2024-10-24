@@ -9,6 +9,8 @@ struct sleeplock;
 struct stat;
 struct superblock;
 struct child_processes;
+struct report_traps;
+
 
 // bio.c
 void            binit(void);
@@ -108,6 +110,7 @@ int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
 int             child_processes(struct child_processes*);
+int             report_traps(struct report_traps*);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

@@ -1,0 +1,3 @@
+/Users/manely/Documents/xv6-riscv/build/CMakeFiles/xv6_riscv.dir
+/Users/manely/Documents/xv6-riscv/build/CMakeFiles/edit_cache.dir
+/Users/manely/Documents/xv6-riscv/build/CMakeFiles/rebuild_cache.dir

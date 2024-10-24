@@ -5,6 +5,7 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "trap.h"
 
 uint64
 sys_exit(void)
@@ -92,14 +93,24 @@ sys_uptime(void)
   return xticks;
 }
 
-// system call for fetch child processes of a process
 uint64 sys_child_processes(void) {
   struct child_processes *cp;
   struct child_processes kcp;
   argaddr(0, (uint64 *) &cp);
   struct proc *p = myproc();
-  copyin(p->pagetable, (char *) &kcp, (uint64) cp, sizeof(cp));
+  copyin(p->pagetable, (char *) &kcp, (uint64) cp, sizeof(kcp));
   int xstat = child_processes(&kcp);
   copyout(p->pagetable, (uint64) cp, (char *) &kcp, sizeof(kcp));
+  return xstat;
+}
+
+uint64 sys_report_traps(void) {
+  struct report_traps *rt;
+  struct report_traps krt;
+  argaddr(0, (uint64 *) &rt);
+  struct proc *p = myproc();
+  copyin(p->pagetable, (char *) &krt, (uint64) rt, sizeof(krt));
+  int xstat = report_traps(&krt);
+  copyout(p->pagetable, (uint64) rt, (char *) &krt, sizeof(krt));
   return xstat;
 }

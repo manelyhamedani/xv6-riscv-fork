@@ -6,6 +6,7 @@
 #include "proc.h"
 #include "defs.h"
 #include <stddef.h>
+#include "trap.h"
 
 struct cpu cpus[NCPU];
 
@@ -704,7 +705,7 @@ int child_processes(struct child_processes *cp) {
   for (p = proc; p < &proc[NPROC]; p++) {
     if (p->state == UNUSED) {
       continue;
-}
+    }
     parent = p->parent;
 
     while (parent != NULL) {
@@ -721,5 +722,24 @@ int child_processes(struct child_processes *cp) {
     }
   }
 
+  return 0;
+}
+
+int report_traps(struct report_traps *rt) {
+  struct proc *current_process = myproc();
+
+  for (int i = 0; i < REPORT_BUFFER_SIZE; ++i) {
+    // read reports according to time
+    int anc_count = _internal_report_list.reports[i].ancestors_count;
+    int read_index = (anc_count <= REPORT_BUFFER_SIZE) ? 0 : _internal_report_list.write_index;
+
+    for (int j = 0; (j < REPORT_BUFFER_SIZE && j < anc_count); ++j) {
+
+      if (_internal_report_list.reports[i].ancestors[read_index] == current_process->pid) {
+        rt->reports[rt->count++] = _internal_report_list.reports[i];
+      }
+      read_index = (read_index + 1) % REPORT_BUFFER_SIZE;
+    }
+  }
   return 0;
 }

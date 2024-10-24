@@ -5,6 +5,10 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+#include "trap.h"
+#include <stddef.h>
+
+struct internal_report_list _internal_report_list;
 
 struct spinlock tickslock;
 uint ticks;
@@ -15,6 +19,7 @@ extern char trampoline[], uservec[], userret[];
 void kernelvec();
 
 extern int devintr();
+extern void log_trap();
 
 void
 trapinit(void)
@@ -70,6 +75,7 @@ usertrap(void)
   } else {
     printf("usertrap(): unexpected scause 0x%lx pid=%d\n", r_scause(), p->pid);
     printf("            sepc=0x%lx stval=0x%lx\n", r_sepc(), r_stval());
+    log_trap();
     setkilled(p);
   }
 
@@ -216,3 +222,22 @@ devintr()
   }
 }
 
+void log_trap() {
+  struct proc *p = myproc();
+  int wi = _internal_report_list.write_index;
+  strncpy(_internal_report_list.reports[wi].pname, p->name, sizeof(p->name));
+  _internal_report_list.reports[wi].pid = p->pid;
+  _internal_report_list.reports[wi].scause = r_scause();
+  _internal_report_list.reports[wi].sepc = r_sepc();
+  _internal_report_list.reports[wi].stval = r_stval();
+  struct proc *parent = p->parent;
+  int ac = _internal_report_list.reports[wi].ancestors_count;
+  while (parent != NULL) {
+    _internal_report_list.reports[wi].ancestors[ac] = parent->pid;
+    parent = parent->parent;
+    ac++;
+  }
+  _internal_report_list.reports[wi].ancestors_count = ac;
+  _internal_report_list.count++;
+  _internal_report_list.write_index = (wi + 1) % REPORT_BUFFER_SIZE;
+}

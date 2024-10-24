@@ -7,6 +7,11 @@
         "defs.h": "c",
         "riscv.h": "c",
         "spinlock.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "bit": "c",
+        "type_traits": "c",
+        "cmath": "c",
+        "cstdlib": "c",
+        "trap.h": "c"
     }
 }
