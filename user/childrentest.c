@@ -12,15 +12,12 @@ int main() {
             fork();
         }
         sleep(20);
-        // for (int i = 0; i < 4000000000; i++) {
-        //     int x = i * i * i;
-        // }
         return 0;
     }
     else {
         sleep(2);
-        char *argv[] = {"cp", 0};
-        exec("cp", argv);
+        char *argv[] = {"children", 0};
+        exec("children", argv);
         printf("exec failed\n");
     }
     return 0;

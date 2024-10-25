@@ -699,7 +699,6 @@ procdump(void)
   }
 }
 
-
 int child_processes(struct child_processes *cp) {
   struct proc *current_process = myproc();
   struct proc *p, *parent;

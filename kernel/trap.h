@@ -2,6 +2,7 @@
 #define TRAP_H
 
 #include "types.h"
+#include "param.h"
 #include "spinlock.h"
 
 #define REPORT_BUFFER_SIZE  10

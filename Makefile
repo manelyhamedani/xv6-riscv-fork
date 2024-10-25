@@ -140,10 +140,11 @@ UPROGS=\
 	$U/_grind\
 	$U/_wc\
 	$U/_zombie\
-	$U/_cptest\
-	$U/_cp\
-	$U/_rtrap\
-	$U/_report\
+	$U/_childrentest\
+	$U/_children\
+	$U/_myrep\
+	$U/_reptest\
+	$U/_sysrep\
 	$U/_killall\
 
 fs.img: mkfs/mkfs README $(UPROGS)
