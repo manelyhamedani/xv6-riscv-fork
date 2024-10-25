@@ -26,10 +26,12 @@ int main() {
                 "mret\n"                  // Return from exception (this will invoke the trap)
             );
         }
+        // else {
+        //     sleep(200);
+        // }
     }
     else {
         sleep(20);
-        print_child_processes();
         struct report_traps *rt = malloc(sizeof(struct report_traps));
         int xs = report_traps(rt);
         if (xs != 0) {
@@ -48,7 +50,11 @@ int main() {
                 rt->reports[i].sepc,
                 rt->reports[i].stval
             );
+        
         }
+        // char *argv[] = {"cp", 0};
+        // exec("cp", argv);
+        // printf("exec failed\n");
     }
 
     return 0;

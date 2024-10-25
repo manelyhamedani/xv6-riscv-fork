@@ -18,6 +18,7 @@
         "fs.h": "c",
         "sleeplock.h": "c",
         "file.h": "c",
-        "kfile.h": "c"
+        "kfile.h": "c",
+        "param.h": "c"
     }
 }

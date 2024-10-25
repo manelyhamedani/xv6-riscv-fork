@@ -732,18 +732,24 @@ int report_traps(struct report_traps *rt) {
   struct proc *current_process = myproc();
 
   acquire(&_internal_report_list.lock);
-  for (int i = 0; i < REPORT_BUFFER_SIZE; ++i) {
-    // read reports according to time
-    int anc_count = _internal_report_list.reports[i].ancestors_count;
-    int read_index = (anc_count <= REPORT_BUFFER_SIZE) ? 0 : _internal_report_list.write_index;
 
-    for (int j = 0; (j < REPORT_BUFFER_SIZE && j < anc_count); ++j) {
+  // read reports according to time
+  int report_count = _internal_report_list.count;
+  int read_index = (report_count <= REPORT_BUFFER_SIZE) ? 0 : _internal_report_list.write_index;
 
-      if (_internal_report_list.reports[i].ancestors[read_index] == current_process->pid) {
-        rt->reports[rt->count++] = _internal_report_list.reports[i];
+  for (int i = 0; (i < REPORT_BUFFER_SIZE && i < report_count); ++i) {
+    int anc_count = _internal_report_list.reports[read_index].ancestors_count;
+
+    for (int j = 0; j < anc_count; ++j) {
+
+      if (_internal_report_list.reports[read_index].ancestors[j] == current_process->pid) {
+        rt->reports[rt->count++] = _internal_report_list.reports[read_index];
+        break;
       }
-      read_index = (read_index + 1) % REPORT_BUFFER_SIZE;
+      
     }
+
+    read_index = (read_index + 1) % REPORT_BUFFER_SIZE;
   }
   release(&_internal_report_list.lock);
   return 0;
