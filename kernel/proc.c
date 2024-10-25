@@ -768,10 +768,9 @@ int sysrep(struct report_traps *rt) {
   
   kfileseek(f, 0, SEEK_SET);
   kfileread(f, (uint64) &(rt->count), sizeof(int));
-  kfileseek(f, (int) -sizeof(struct report), SEEK_END);
+  kfileseek(f, -10 * (int) sizeof(struct report), SEEK_END);
   for (int i = 0; i < REPORT_BUFFER_SIZE && i < rt->count; ++i) {
     kfileread(f, (uint64) &rt->reports[i], sizeof(struct report));
-    kfileseek(f, -2 * (int) sizeof(struct report), SEEK_CUR);
   }
   kfileclose(f);
   return 0;
