@@ -103,24 +103,24 @@ uint64 sys_child_processes(void) {
   return xstat;
 }
 
-uint64 sys_report_traps(void) {
+uint64 sys_myrep(void) {
   struct report_traps *rt;
   struct report_traps krt;
   argaddr(0, (uint64 *) &rt);
   struct proc *p = myproc();
   copyin(p->pagetable, (char *) &krt, (uint64) rt, sizeof(krt));
-  int xstat = report_traps(&krt);
+  int xstat = myrep(&krt);
   copyout(p->pagetable, (uint64) rt, (char *) &krt, sizeof(krt));
   return xstat;
 }
 
-uint64 sys_report(void) {
+uint64 sys_sysrep(void) {
   struct report_traps *rt;
   struct report_traps krt;
   argaddr(0, (uint64 *) &rt);
   struct proc *p = myproc();
   copyin(p->pagetable, (char *) &krt, (uint64) rt, sizeof(krt));
-  int xstat = report(&krt);
+  int xstat = sysrep(&krt);
   copyout(p->pagetable, (uint64) rt, (char *) &krt, sizeof(krt));
   return xstat;
 }

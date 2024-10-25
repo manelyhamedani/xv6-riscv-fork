@@ -25,9 +25,9 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int child_processes(struct child_processes*);
-int report_traps(struct report_traps*);
+int myrep(struct report_traps*);
 int seek(int, int, int);
-int report(struct report_traps*);
+int sysrep(struct report_traps*);
 
 // ulib.c
 int stat(const char*, struct stat*);

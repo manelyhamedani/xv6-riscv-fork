@@ -21,6 +21,6 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_child_processes 22
-#define SYS_report_traps    23
+#define SYS_myrep           23
 #define SYS_seek            24
-#define SYS_report          25
+#define SYS_sysrep          25

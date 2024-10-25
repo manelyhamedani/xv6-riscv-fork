@@ -11,7 +11,7 @@ struct proc* myproc(void);
 
 int print_reports() {
     struct report_traps *rt = malloc(sizeof(struct report_traps));
-    int xs = report_traps(rt);
+    int xs = myrep(rt);
     if (xs != 0) {
         return -1;
     }
@@ -22,7 +22,7 @@ int print_reports() {
     printf("PID\t\tPNAME\t\tscause\t\tsepc\t\tstval\n");
     for (int i = 0; i < count; ++i) {
         // column fixing
-        if (sizeof(rt->reports[i].pname) >= 8) {
+        if (strlen(rt->reports[i].pname) >= 8) {
             printf("%d\t\t%s\t0x%lx\t\t0x%lx\t\t0x%lx\n",
             rt->reports[i].pid,
             rt->reports[i].pname,

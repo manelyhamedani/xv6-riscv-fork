@@ -727,7 +727,7 @@ int child_processes(struct child_processes *cp) {
   return 0;
 }
 
-int report_traps(struct report_traps *rt) {
+int myrep(struct report_traps *rt) {
   struct proc *current_process = myproc();
 
   acquire(&_internal_report_list.lock);
@@ -754,7 +754,7 @@ int report_traps(struct report_traps *rt) {
   return 0;
 }
 
-int report(struct report_traps *rt) {
+int sysrep(struct report_traps *rt) {
   struct file *f = kfilealloc();
   f->type = FD_INODE;
   if (f->ip == NULL) {
@@ -767,11 +767,11 @@ int report(struct report_traps *rt) {
   f->ref = 1;
   
   kfileseek(f, 0, SEEK_SET);
-  kfileread(f, &(rt->count), sizeof(int));
-  kfileseek(f, -sizeof(struct report), SEEK_END);
+  kfileread(f, (uint64) &(rt->count), sizeof(int));
+  kfileseek(f, (int) -sizeof(struct report), SEEK_END);
   for (int i = 0; i < REPORT_BUFFER_SIZE && i < rt->count; ++i) {
-    kfileread(f, &rt->reports[i], sizeof(struct report));
-    kfileseek(f, -2 * sizeof(struct report), SEEK_CUR);
+    kfileread(f, (uint64) &rt->reports[i], sizeof(struct report));
+    kfileseek(f, -2 * (int) sizeof(struct report), SEEK_CUR);
   }
   kfileclose(f);
   return 0;

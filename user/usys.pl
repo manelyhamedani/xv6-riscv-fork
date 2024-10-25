@@ -37,6 +37,6 @@ entry("sbrk");
 entry("sleep");
 entry("uptime");
 entry("child_processes");
-entry("report_traps");
+entry("myrep");
 entry("seek");
-entry("report");
+entry("sysrep");

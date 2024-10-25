@@ -102,9 +102,9 @@ extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
 extern uint64 sys_child_processes(void);
-extern uint64 sys_report_traps(void);
+extern uint64 sys_myrep(void);
 extern uint64 sys_seek(void);
-extern uint64 sys_report(void);
+extern uint64 sys_sysrep(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -131,9 +131,9 @@ static uint64 (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_child_processes] sys_child_processes,
-[SYS_report_traps]    sys_report_traps,
+[SYS_myrep]           sys_myrep,
 [SYS_seek]            sys_seek,
-[SYS_report]          sys_report,
+[SYS_sysrep]          sys_sysrep,
 };
 
 void

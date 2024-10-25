@@ -110,7 +110,7 @@ int fileseek(struct file *f, int offset, int whence) {
   }
 
   begin_op();
-  // ilock(f->ip);
+  ilock(f->ip);
 
   if (whence == SEEK_SET) {
     new_offset = offset;
@@ -133,7 +133,7 @@ int fileseek(struct file *f, int offset, int whence) {
 
   f->off = new_offset;
 
-  // iunlock(f->ip);
+  iunlock(f->ip);
   end_op();
 
   return new_offset;

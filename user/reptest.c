@@ -25,7 +25,7 @@ int main() {
         }
     }
     else {
-        sleep(20);
+        wait(0);
         char *argv[] = {"myrep", 0};
         exec("myrep", argv);
         printf("exec failed\n");
