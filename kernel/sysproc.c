@@ -3,9 +3,8 @@
 #include "defs.h"
 #include "param.h"
 #include "memlayout.h"
-#include "spinlock.h"
-#include "proc.h"
 #include "trap.h"
+#include "proc.h"
 
 uint64
 sys_exit(void)
@@ -111,6 +110,17 @@ uint64 sys_report_traps(void) {
   struct proc *p = myproc();
   copyin(p->pagetable, (char *) &krt, (uint64) rt, sizeof(krt));
   int xstat = report_traps(&krt);
+  copyout(p->pagetable, (uint64) rt, (char *) &krt, sizeof(krt));
+  return xstat;
+}
+
+uint64 sys_report(void) {
+  struct report_traps *rt;
+  struct report_traps krt;
+  argaddr(0, (uint64 *) &rt);
+  struct proc *p = myproc();
+  copyin(p->pagetable, (char *) &krt, (uint64) rt, sizeof(krt));
+  int xstat = report(&krt);
   copyout(p->pagetable, (uint64) rt, (char *) &krt, sizeof(krt));
   return xstat;
 }

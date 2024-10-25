@@ -1,7 +1,6 @@
 #include "kernel/fcntl.h"
 #include "kernel/param.h"
 #include "kernel/types.h"
-#include "kernel/spinlock.h"
 #include "kernel/riscv.h"
 #include "kernel/trap.h"
 #include "kernel/proc.h"
@@ -42,7 +41,7 @@ int main() {
 
         printf("PID\t\tPNAME\t\tscause\t\tsepc\t\tstval\n");
         for (int i = 0; i < count; ++i) {
-            printf("%d\t\t%s\t\t%lu\t\t%lu\t\t%lu\n",
+            printf("%d\t\t%s\t\t0x%lx\t\t0x%lx\t\t0x%lx\n",
                 rt->reports[i].pid,
                 rt->reports[i].pname,
                 rt->reports[i].scause,

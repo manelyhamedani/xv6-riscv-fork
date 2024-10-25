@@ -19,6 +19,7 @@ int main() {
     }
     else {
         sleep(2);
+        print_child_processes();
     }
-    return print_child_processes();
+    return 0;
 }

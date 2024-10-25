@@ -101,6 +101,44 @@ filestat(struct file *f, uint64 addr)
   return -1;
 }
 
+
+int fileseek(struct file *f, int offset, int whence) {
+  int new_offset;
+
+  if (f->type != FD_INODE) {
+    return -1;
+  }
+
+  begin_op();
+  // ilock(f->ip);
+
+  if (whence == SEEK_SET) {
+    new_offset = offset;
+  }
+  else if (whence == SEEK_CUR) {
+    new_offset = f->off + offset;
+  }
+  else if (whence == SEEK_END) {
+    new_offset = f->ip->size + offset;
+  }
+  else {
+    end_op();
+    return -1;
+  }
+
+  if (new_offset < 0 || new_offset > f->ip->size) {
+    end_op();
+    return -1;
+  }
+
+  f->off = new_offset;
+
+  // iunlock(f->ip);
+  end_op();
+
+  return new_offset;
+}
+
 // Read from file f.
 // addr is a user virtual address.
 int

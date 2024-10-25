@@ -12,6 +12,12 @@
         "type_traits": "c",
         "cmath": "c",
         "cstdlib": "c",
-        "trap.h": "c"
+        "trap.h": "c",
+        "memlayout.h": "c",
+        "fcntl.h": "c",
+        "fs.h": "c",
+        "sleeplock.h": "c",
+        "file.h": "c",
+        "kfile.h": "c"
     }
 }

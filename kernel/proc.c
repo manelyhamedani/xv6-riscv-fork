@@ -2,11 +2,14 @@
 #include "param.h"
 #include "memlayout.h"
 #include "riscv.h"
-#include "spinlock.h"
-#include "proc.h"
 #include "defs.h"
 #include <stddef.h>
 #include "trap.h"
+#include "proc.h"
+#include "stat.h"
+#include "sleeplock.h"
+#include "fs.h"
+#include "kfile.h"
 
 struct cpu cpus[NCPU];
 
@@ -728,6 +731,7 @@ int child_processes(struct child_processes *cp) {
 int report_traps(struct report_traps *rt) {
   struct proc *current_process = myproc();
 
+  acquire(&_internal_report_list.lock);
   for (int i = 0; i < REPORT_BUFFER_SIZE; ++i) {
     // read reports according to time
     int anc_count = _internal_report_list.reports[i].ancestors_count;
@@ -741,5 +745,29 @@ int report_traps(struct report_traps *rt) {
       read_index = (read_index + 1) % REPORT_BUFFER_SIZE;
     }
   }
+  release(&_internal_report_list.lock);
+  return 0;
+}
+
+int report(struct report_traps *rt) {
+  struct file *f = kfilealloc();
+  f->type = FD_INODE;
+  if (f->ip == NULL) {
+    begin_op();
+    f->ip = kfilecreate("/reports.bin", T_FILE, 0, 0);
+    end_op();
+  }
+  f->off = 0;
+  f->readable = 1;
+  f->ref = 1;
+  
+  kfileseek(f, 0, SEEK_SET);
+  kfileread(f, &(rt->count), sizeof(int));
+  kfileseek(f, -sizeof(struct report), SEEK_END);
+  for (int i = 0; i < REPORT_BUFFER_SIZE && i < rt->count; ++i) {
+    kfileread(f, &rt->reports[i], sizeof(struct report));
+    kfileseek(f, -2 * sizeof(struct report), SEEK_CUR);
+  }
+  kfileclose(f);
   return 0;
 }

@@ -2,6 +2,7 @@
 #define TRAP_H
 
 #include "types.h"
+#include "spinlock.h"
 
 #define REPORT_BUFFER_SIZE  10
 
@@ -17,6 +18,7 @@ struct report {
 
 extern struct internal_report_list {
     struct report reports[REPORT_BUFFER_SIZE];
+    struct spinlock lock;
     int count;
     int write_index;
 } _internal_report_list;

@@ -2,11 +2,14 @@
 #include "param.h"
 #include "memlayout.h"
 #include "riscv.h"
-#include "spinlock.h"
-#include "proc.h"
 #include "defs.h"
 #include "trap.h"
+#include "proc.h"
 #include <stddef.h>
+#include "sleeplock.h"
+#include "fs.h"
+#include "kfile.h"
+#include "stat.h"
 
 struct internal_report_list _internal_report_list;
 
@@ -222,22 +225,54 @@ devintr()
   }
 }
 
+void store_trap(struct report r) {
+  struct file *f = kfilealloc();
+  f->type = FD_INODE;
+  if (f->ip == NULL) {
+    begin_op();
+    f->ip = kfilecreate("/reports.bin", T_FILE, 0, 0);
+    end_op();
+  }
+  f->off = 0;
+  f->writable = 1;
+  f->ref = 1;
+
+  acquire(&_internal_report_list.lock);
+
+  int wi = _internal_report_list.write_index;
+  _internal_report_list.reports[wi] = r;
+  _internal_report_list.count++;
+  int count = _internal_report_list.count;
+  _internal_report_list.write_index = (wi + 1) % REPORT_BUFFER_SIZE;
+
+  release(&_internal_report_list.lock);
+
+  kfileseek(f, 0, SEEK_SET);
+  kfilewrite(f, (uint64) &count, sizeof(count));
+  
+  kfileseek(f, 0, SEEK_END);
+  kfilewrite(f, (uint64) &r, sizeof(r));
+ 
+  kfileclose(f);
+}
+
 void log_trap() {
   struct proc *p = myproc();
-  int wi = _internal_report_list.write_index;
-  strncpy(_internal_report_list.reports[wi].pname, p->name, sizeof(p->name));
-  _internal_report_list.reports[wi].pid = p->pid;
-  _internal_report_list.reports[wi].scause = r_scause();
-  _internal_report_list.reports[wi].sepc = r_sepc();
-  _internal_report_list.reports[wi].stval = r_stval();
+  struct report r;
+
+  strncpy(r.pname, p->name, sizeof(p->name));
+  r.pid = p->pid;
+  r.sepc = r_sepc();
+  r.stval = r_stval();
+  r.scause = r_scause();
   struct proc *parent = p->parent;
-  int ac = _internal_report_list.reports[wi].ancestors_count;
+  int ac = 0;
   while (parent != NULL) {
-    _internal_report_list.reports[wi].ancestors[ac] = parent->pid;
+    r.ancestors[ac] = parent->pid;
     parent = parent->parent;
     ac++;
   }
-  _internal_report_list.reports[wi].ancestors_count = ac;
-  _internal_report_list.count++;
-  _internal_report_list.write_index = (wi + 1) % REPORT_BUFFER_SIZE;
+  r.ancestors_count = ac;
+
+  store_trap(r);
 }

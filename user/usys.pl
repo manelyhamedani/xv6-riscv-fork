@@ -38,3 +38,5 @@ entry("sleep");
 entry("uptime");
 entry("child_processes");
 entry("report_traps");
+entry("seek");
+entry("report");

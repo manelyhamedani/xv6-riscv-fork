@@ -36,6 +36,7 @@ void            fileinit(void);
 int             fileread(struct file*, uint64, int n);
 int             filestat(struct file*, uint64 addr);
 int             filewrite(struct file*, uint64, int n);
+int             fileseek(struct file*, int, int);
 
 // fs.c
 void            fsinit(int);
@@ -145,6 +146,7 @@ void            argaddr(int, uint64 *);
 int             fetchstr(uint64, char*, int);
 int             fetchaddr(uint64, uint64*);
 void            syscall();
+
 
 // trap.c
 extern uint     ticks;

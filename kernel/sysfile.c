@@ -15,6 +15,7 @@
 #include "sleeplock.h"
 #include "file.h"
 #include "fcntl.h"
+#include <stddef.h>
 
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
@@ -63,6 +64,21 @@ sys_dup(void)
     return -1;
   filedup(f);
   return fd;
+}
+
+
+uint64 sys_seek(void) {
+  struct file *f;
+  int fd, off, whence;
+  argint(0, &fd);
+  argint(1, &off);
+  argint(2, &whence);
+
+  if ((f = myproc()->ofile[fd]) == NULL) {
+    return -1;
+  }
+
+  return fileseek(f, off, whence);
 }
 
 uint64

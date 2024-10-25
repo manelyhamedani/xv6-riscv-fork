@@ -9,9 +9,14 @@ struct file {
   short major;       // FD_DEVICE
 };
 
+
 #define major(dev)  ((dev) >> 16 & 0xFFFF)
 #define minor(dev)  ((dev) & 0xFFFF)
 #define	mkdev(m,n)  ((uint)((m)<<16| (n)))
+
+#define SEEK_SET  0
+#define SEEK_CUR  1
+#define SEEK_END  2
 
 // in-memory copy of an inode
 struct inode {
