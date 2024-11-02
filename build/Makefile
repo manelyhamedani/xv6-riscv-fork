@@ -729,29 +729,53 @@ user/cat.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/cat.c.s
 .PHONY : user/cat.c.s
 
-user/cp.o: user/cp.c.o
-.PHONY : user/cp.o
+user/children.o: user/children.c.o
+.PHONY : user/children.o
 
 # target to build an object file
-user/cp.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/cp.c.o
-.PHONY : user/cp.c.o
+user/children.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/children.c.o
+.PHONY : user/children.c.o
 
-user/cp.i: user/cp.c.i
-.PHONY : user/cp.i
+user/children.i: user/children.c.i
+.PHONY : user/children.i
 
 # target to preprocess a source file
-user/cp.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/cp.c.i
-.PHONY : user/cp.c.i
+user/children.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/children.c.i
+.PHONY : user/children.c.i
 
-user/cp.s: user/cp.c.s
-.PHONY : user/cp.s
+user/children.s: user/children.c.s
+.PHONY : user/children.s
 
 # target to generate assembly for a file
-user/cp.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/cp.c.s
-.PHONY : user/cp.c.s
+user/children.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/children.c.s
+.PHONY : user/children.c.s
+
+user/childrentest.o: user/childrentest.c.o
+.PHONY : user/childrentest.o
+
+# target to build an object file
+user/childrentest.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/childrentest.c.o
+.PHONY : user/childrentest.c.o
+
+user/childrentest.i: user/childrentest.c.i
+.PHONY : user/childrentest.i
+
+# target to preprocess a source file
+user/childrentest.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/childrentest.c.i
+.PHONY : user/childrentest.c.i
+
+user/childrentest.s: user/childrentest.c.s
+.PHONY : user/childrentest.s
+
+# target to generate assembly for a file
+user/childrentest.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/childrentest.c.s
+.PHONY : user/childrentest.c.s
 
 user/echo.o: user/echo.c.o
 .PHONY : user/echo.o
@@ -897,6 +921,30 @@ user/kill.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/kill.c.s
 .PHONY : user/kill.c.s
 
+user/killall.o: user/killall.c.o
+.PHONY : user/killall.o
+
+# target to build an object file
+user/killall.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/killall.c.o
+.PHONY : user/killall.c.o
+
+user/killall.i: user/killall.c.i
+.PHONY : user/killall.i
+
+# target to preprocess a source file
+user/killall.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/killall.c.i
+.PHONY : user/killall.c.i
+
+user/killall.s: user/killall.c.s
+.PHONY : user/killall.s
+
+# target to generate assembly for a file
+user/killall.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/killall.c.s
+.PHONY : user/killall.c.s
+
 user/ln.o: user/ln.c.o
 .PHONY : user/ln.o
 
@@ -969,6 +1017,30 @@ user/mkdir.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/mkdir.c.s
 .PHONY : user/mkdir.c.s
 
+user/myrep.o: user/myrep.c.o
+.PHONY : user/myrep.o
+
+# target to build an object file
+user/myrep.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/myrep.c.o
+.PHONY : user/myrep.c.o
+
+user/myrep.i: user/myrep.c.i
+.PHONY : user/myrep.i
+
+# target to preprocess a source file
+user/myrep.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/myrep.c.i
+.PHONY : user/myrep.c.i
+
+user/myrep.s: user/myrep.c.s
+.PHONY : user/myrep.s
+
+# target to generate assembly for a file
+user/myrep.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/myrep.c.s
+.PHONY : user/myrep.c.s
+
 user/printf.o: user/printf.c.o
 .PHONY : user/printf.o
 
@@ -992,6 +1064,30 @@ user/printf.s: user/printf.c.s
 user/printf.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/printf.c.s
 .PHONY : user/printf.c.s
+
+user/reptest.o: user/reptest.c.o
+.PHONY : user/reptest.o
+
+# target to build an object file
+user/reptest.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/reptest.c.o
+.PHONY : user/reptest.c.o
+
+user/reptest.i: user/reptest.c.i
+.PHONY : user/reptest.i
+
+# target to preprocess a source file
+user/reptest.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/reptest.c.i
+.PHONY : user/reptest.c.i
+
+user/reptest.s: user/reptest.c.s
+.PHONY : user/reptest.s
+
+# target to generate assembly for a file
+user/reptest.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/reptest.c.s
+.PHONY : user/reptest.c.s
 
 user/rm.o: user/rm.c.o
 .PHONY : user/rm.o
@@ -1064,6 +1160,30 @@ user/stressfs.s: user/stressfs.c.s
 user/stressfs.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/stressfs.c.s
 .PHONY : user/stressfs.c.s
+
+user/sysrep.o: user/sysrep.c.o
+.PHONY : user/sysrep.o
+
+# target to build an object file
+user/sysrep.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/sysrep.c.o
+.PHONY : user/sysrep.c.o
+
+user/sysrep.i: user/sysrep.c.i
+.PHONY : user/sysrep.i
+
+# target to preprocess a source file
+user/sysrep.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/sysrep.c.i
+.PHONY : user/sysrep.c.i
+
+user/sysrep.s: user/sysrep.c.s
+.PHONY : user/sysrep.s
+
+# target to generate assembly for a file
+user/sysrep.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/xv6_riscv.dir/build.make CMakeFiles/xv6_riscv.dir/user/sysrep.c.s
+.PHONY : user/sysrep.c.s
 
 user/ulib.o: user/ulib.c.o
 .PHONY : user/ulib.o
@@ -1269,9 +1389,12 @@ help:
 	@echo "... user/cat.o"
 	@echo "... user/cat.i"
 	@echo "... user/cat.s"
-	@echo "... user/cp.o"
-	@echo "... user/cp.i"
-	@echo "... user/cp.s"
+	@echo "... user/children.o"
+	@echo "... user/children.i"
+	@echo "... user/children.s"
+	@echo "... user/childrentest.o"
+	@echo "... user/childrentest.i"
+	@echo "... user/childrentest.s"
 	@echo "... user/echo.o"
 	@echo "... user/echo.i"
 	@echo "... user/echo.s"
@@ -1290,6 +1413,9 @@ help:
 	@echo "... user/kill.o"
 	@echo "... user/kill.i"
 	@echo "... user/kill.s"
+	@echo "... user/killall.o"
+	@echo "... user/killall.i"
+	@echo "... user/killall.s"
 	@echo "... user/ln.o"
 	@echo "... user/ln.i"
 	@echo "... user/ln.s"
@@ -1299,9 +1425,15 @@ help:
 	@echo "... user/mkdir.o"
 	@echo "... user/mkdir.i"
 	@echo "... user/mkdir.s"
+	@echo "... user/myrep.o"
+	@echo "... user/myrep.i"
+	@echo "... user/myrep.s"
 	@echo "... user/printf.o"
 	@echo "... user/printf.i"
 	@echo "... user/printf.s"
+	@echo "... user/reptest.o"
+	@echo "... user/reptest.i"
+	@echo "... user/reptest.s"
 	@echo "... user/rm.o"
 	@echo "... user/rm.i"
 	@echo "... user/rm.s"
@@ -1311,6 +1443,9 @@ help:
 	@echo "... user/stressfs.o"
 	@echo "... user/stressfs.i"
 	@echo "... user/stressfs.s"
+	@echo "... user/sysrep.o"
+	@echo "... user/sysrep.i"
+	@echo "... user/sysrep.s"
 	@echo "... user/ulib.o"
 	@echo "... user/ulib.i"
 	@echo "... user/ulib.s"

@@ -757,11 +757,17 @@ int myrep(struct report_traps *rt) {
 int sysrep(struct report_traps *rt) {
   struct file *f = kfilealloc();
   f->type = FD_INODE;
+  // f->ip = namei("/reports.bin");
+  // printf("size = %d\n", f->ip->size);
   if (f->ip == NULL) {
     begin_op();
     f->ip = kfilecreate("/reports.bin", T_FILE, 0, 0);
+    // f->ip->size = 0;
+    iunlockput(f->ip);
     end_op();
+    return 0;
   }
+  // printf("size = %d\n", f->ip->size);
   f->off = 0;
   f->readable = 1;
   f->ref = 1;

@@ -42,6 +42,8 @@ int print_reports() {
         }
     
     }
+
+    free(rt);
     return 0;
 }
 

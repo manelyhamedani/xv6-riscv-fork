@@ -45,5 +45,7 @@ int main() {
         }
     
     }
+
+    free(rt);
     return 0;
 }

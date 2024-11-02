@@ -57,7 +57,12 @@ add_executable(xv6_riscv
     kernel/vm.c
     mkfs/mkfs.c
     user/cat.c
-    user/cp.c
+    user/children.c
+    user/childrentest.c
+    user/killall.c
+    user/reptest.c
+    user/sysrep.c
+    user/myrep.c
     user/echo.c
     user/forktest.c
     user/grep.c

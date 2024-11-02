@@ -151,9 +151,39 @@
 },
 {
   "directory": "/Users/manely/Documents/xv6-riscv/build",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/cp.c.o -c /Users/manely/Documents/xv6-riscv/user/cp.c",
-  "file": "/Users/manely/Documents/xv6-riscv/user/cp.c",
-  "output": "CMakeFiles/xv6_riscv.dir/user/cp.c.o"
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/children.c.o -c /Users/manely/Documents/xv6-riscv/user/children.c",
+  "file": "/Users/manely/Documents/xv6-riscv/user/children.c",
+  "output": "CMakeFiles/xv6_riscv.dir/user/children.c.o"
+},
+{
+  "directory": "/Users/manely/Documents/xv6-riscv/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/childrentest.c.o -c /Users/manely/Documents/xv6-riscv/user/childrentest.c",
+  "file": "/Users/manely/Documents/xv6-riscv/user/childrentest.c",
+  "output": "CMakeFiles/xv6_riscv.dir/user/childrentest.c.o"
+},
+{
+  "directory": "/Users/manely/Documents/xv6-riscv/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/killall.c.o -c /Users/manely/Documents/xv6-riscv/user/killall.c",
+  "file": "/Users/manely/Documents/xv6-riscv/user/killall.c",
+  "output": "CMakeFiles/xv6_riscv.dir/user/killall.c.o"
+},
+{
+  "directory": "/Users/manely/Documents/xv6-riscv/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/reptest.c.o -c /Users/manely/Documents/xv6-riscv/user/reptest.c",
+  "file": "/Users/manely/Documents/xv6-riscv/user/reptest.c",
+  "output": "CMakeFiles/xv6_riscv.dir/user/reptest.c.o"
+},
+{
+  "directory": "/Users/manely/Documents/xv6-riscv/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/sysrep.c.o -c /Users/manely/Documents/xv6-riscv/user/sysrep.c",
+  "file": "/Users/manely/Documents/xv6-riscv/user/sysrep.c",
+  "output": "CMakeFiles/xv6_riscv.dir/user/sysrep.c.o"
+},
+{
+  "directory": "/Users/manely/Documents/xv6-riscv/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/cc  -I/Users/manely/Documents/xv6-riscv/kernel -I/Users/manely/Documents/xv6-riscv/user -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/xv6_riscv.dir/user/myrep.c.o -c /Users/manely/Documents/xv6-riscv/user/myrep.c",
+  "file": "/Users/manely/Documents/xv6-riscv/user/myrep.c",
+  "output": "CMakeFiles/xv6_riscv.dir/user/myrep.c.o"
 },
 {
   "directory": "/Users/manely/Documents/xv6-riscv/build",

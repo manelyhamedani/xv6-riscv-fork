@@ -228,6 +228,7 @@ devintr()
 void store_trap(struct report r) {
   struct file *f = kfilealloc();
   f->type = FD_INODE;
+  // f->ip = namei("/reports.bin");
   if (f->ip == NULL) {
     begin_op();
     f->ip = kfilecreate("/reports.bin", T_FILE, 0, 0);
@@ -247,12 +248,13 @@ void store_trap(struct report r) {
 
   release(&_internal_report_list.lock);
 
+  // f->ip->size = sizeof(count) + sizeof(struct report) * _internal_report_list.count;
   kfileseek(f, 0, SEEK_SET);
   kfilewrite(f, (uint64) &count, sizeof(count));
   
   kfileseek(f, 0, SEEK_END);
   kfilewrite(f, (uint64) &r, sizeof(r));
- 
+
   kfileclose(f);
 }
 

@@ -419,24 +419,94 @@ CMakeFiles/xv6_riscv.dir/user/cat.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/cat.c.s"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/cat.c -o CMakeFiles/xv6_riscv.dir/user/cat.c.s
 
-CMakeFiles/xv6_riscv.dir/user/cp.c.o: CMakeFiles/xv6_riscv.dir/flags.make
-CMakeFiles/xv6_riscv.dir/user/cp.c.o: /Users/manely/Documents/xv6-riscv/user/cp.c
-CMakeFiles/xv6_riscv.dir/user/cp.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/xv6_riscv.dir/user/cp.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/cp.c.o -MF CMakeFiles/xv6_riscv.dir/user/cp.c.o.d -o CMakeFiles/xv6_riscv.dir/user/cp.c.o -c /Users/manely/Documents/xv6-riscv/user/cp.c
+CMakeFiles/xv6_riscv.dir/user/children.c.o: CMakeFiles/xv6_riscv.dir/flags.make
+CMakeFiles/xv6_riscv.dir/user/children.c.o: /Users/manely/Documents/xv6-riscv/user/children.c
+CMakeFiles/xv6_riscv.dir/user/children.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/xv6_riscv.dir/user/children.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/children.c.o -MF CMakeFiles/xv6_riscv.dir/user/children.c.o.d -o CMakeFiles/xv6_riscv.dir/user/children.c.o -c /Users/manely/Documents/xv6-riscv/user/children.c
 
-CMakeFiles/xv6_riscv.dir/user/cp.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/cp.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/cp.c > CMakeFiles/xv6_riscv.dir/user/cp.c.i
+CMakeFiles/xv6_riscv.dir/user/children.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/children.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/children.c > CMakeFiles/xv6_riscv.dir/user/children.c.i
 
-CMakeFiles/xv6_riscv.dir/user/cp.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/cp.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/cp.c -o CMakeFiles/xv6_riscv.dir/user/cp.c.s
+CMakeFiles/xv6_riscv.dir/user/children.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/children.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/children.c -o CMakeFiles/xv6_riscv.dir/user/children.c.s
+
+CMakeFiles/xv6_riscv.dir/user/childrentest.c.o: CMakeFiles/xv6_riscv.dir/flags.make
+CMakeFiles/xv6_riscv.dir/user/childrentest.c.o: /Users/manely/Documents/xv6-riscv/user/childrentest.c
+CMakeFiles/xv6_riscv.dir/user/childrentest.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/xv6_riscv.dir/user/childrentest.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/childrentest.c.o -MF CMakeFiles/xv6_riscv.dir/user/childrentest.c.o.d -o CMakeFiles/xv6_riscv.dir/user/childrentest.c.o -c /Users/manely/Documents/xv6-riscv/user/childrentest.c
+
+CMakeFiles/xv6_riscv.dir/user/childrentest.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/childrentest.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/childrentest.c > CMakeFiles/xv6_riscv.dir/user/childrentest.c.i
+
+CMakeFiles/xv6_riscv.dir/user/childrentest.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/childrentest.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/childrentest.c -o CMakeFiles/xv6_riscv.dir/user/childrentest.c.s
+
+CMakeFiles/xv6_riscv.dir/user/killall.c.o: CMakeFiles/xv6_riscv.dir/flags.make
+CMakeFiles/xv6_riscv.dir/user/killall.c.o: /Users/manely/Documents/xv6-riscv/user/killall.c
+CMakeFiles/xv6_riscv.dir/user/killall.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/xv6_riscv.dir/user/killall.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/killall.c.o -MF CMakeFiles/xv6_riscv.dir/user/killall.c.o.d -o CMakeFiles/xv6_riscv.dir/user/killall.c.o -c /Users/manely/Documents/xv6-riscv/user/killall.c
+
+CMakeFiles/xv6_riscv.dir/user/killall.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/killall.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/killall.c > CMakeFiles/xv6_riscv.dir/user/killall.c.i
+
+CMakeFiles/xv6_riscv.dir/user/killall.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/killall.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/killall.c -o CMakeFiles/xv6_riscv.dir/user/killall.c.s
+
+CMakeFiles/xv6_riscv.dir/user/reptest.c.o: CMakeFiles/xv6_riscv.dir/flags.make
+CMakeFiles/xv6_riscv.dir/user/reptest.c.o: /Users/manely/Documents/xv6-riscv/user/reptest.c
+CMakeFiles/xv6_riscv.dir/user/reptest.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/xv6_riscv.dir/user/reptest.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/reptest.c.o -MF CMakeFiles/xv6_riscv.dir/user/reptest.c.o.d -o CMakeFiles/xv6_riscv.dir/user/reptest.c.o -c /Users/manely/Documents/xv6-riscv/user/reptest.c
+
+CMakeFiles/xv6_riscv.dir/user/reptest.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/reptest.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/reptest.c > CMakeFiles/xv6_riscv.dir/user/reptest.c.i
+
+CMakeFiles/xv6_riscv.dir/user/reptest.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/reptest.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/reptest.c -o CMakeFiles/xv6_riscv.dir/user/reptest.c.s
+
+CMakeFiles/xv6_riscv.dir/user/sysrep.c.o: CMakeFiles/xv6_riscv.dir/flags.make
+CMakeFiles/xv6_riscv.dir/user/sysrep.c.o: /Users/manely/Documents/xv6-riscv/user/sysrep.c
+CMakeFiles/xv6_riscv.dir/user/sysrep.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/xv6_riscv.dir/user/sysrep.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/sysrep.c.o -MF CMakeFiles/xv6_riscv.dir/user/sysrep.c.o.d -o CMakeFiles/xv6_riscv.dir/user/sysrep.c.o -c /Users/manely/Documents/xv6-riscv/user/sysrep.c
+
+CMakeFiles/xv6_riscv.dir/user/sysrep.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/sysrep.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/sysrep.c > CMakeFiles/xv6_riscv.dir/user/sysrep.c.i
+
+CMakeFiles/xv6_riscv.dir/user/sysrep.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/sysrep.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/sysrep.c -o CMakeFiles/xv6_riscv.dir/user/sysrep.c.s
+
+CMakeFiles/xv6_riscv.dir/user/myrep.c.o: CMakeFiles/xv6_riscv.dir/flags.make
+CMakeFiles/xv6_riscv.dir/user/myrep.c.o: /Users/manely/Documents/xv6-riscv/user/myrep.c
+CMakeFiles/xv6_riscv.dir/user/myrep.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/xv6_riscv.dir/user/myrep.c.o"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/myrep.c.o -MF CMakeFiles/xv6_riscv.dir/user/myrep.c.o.d -o CMakeFiles/xv6_riscv.dir/user/myrep.c.o -c /Users/manely/Documents/xv6-riscv/user/myrep.c
+
+CMakeFiles/xv6_riscv.dir/user/myrep.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/xv6_riscv.dir/user/myrep.c.i"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manely/Documents/xv6-riscv/user/myrep.c > CMakeFiles/xv6_riscv.dir/user/myrep.c.i
+
+CMakeFiles/xv6_riscv.dir/user/myrep.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/xv6_riscv.dir/user/myrep.c.s"
+	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manely/Documents/xv6-riscv/user/myrep.c -o CMakeFiles/xv6_riscv.dir/user/myrep.c.s
 
 CMakeFiles/xv6_riscv.dir/user/echo.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/echo.c.o: /Users/manely/Documents/xv6-riscv/user/echo.c
 CMakeFiles/xv6_riscv.dir/user/echo.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/xv6_riscv.dir/user/echo.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/xv6_riscv.dir/user/echo.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/echo.c.o -MF CMakeFiles/xv6_riscv.dir/user/echo.c.o.d -o CMakeFiles/xv6_riscv.dir/user/echo.c.o -c /Users/manely/Documents/xv6-riscv/user/echo.c
 
 CMakeFiles/xv6_riscv.dir/user/echo.c.i: cmake_force
@@ -450,7 +520,7 @@ CMakeFiles/xv6_riscv.dir/user/echo.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/forktest.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/forktest.c.o: /Users/manely/Documents/xv6-riscv/user/forktest.c
 CMakeFiles/xv6_riscv.dir/user/forktest.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/xv6_riscv.dir/user/forktest.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/xv6_riscv.dir/user/forktest.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/forktest.c.o -MF CMakeFiles/xv6_riscv.dir/user/forktest.c.o.d -o CMakeFiles/xv6_riscv.dir/user/forktest.c.o -c /Users/manely/Documents/xv6-riscv/user/forktest.c
 
 CMakeFiles/xv6_riscv.dir/user/forktest.c.i: cmake_force
@@ -464,7 +534,7 @@ CMakeFiles/xv6_riscv.dir/user/forktest.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/grep.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/grep.c.o: /Users/manely/Documents/xv6-riscv/user/grep.c
 CMakeFiles/xv6_riscv.dir/user/grep.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/xv6_riscv.dir/user/grep.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/xv6_riscv.dir/user/grep.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/grep.c.o -MF CMakeFiles/xv6_riscv.dir/user/grep.c.o.d -o CMakeFiles/xv6_riscv.dir/user/grep.c.o -c /Users/manely/Documents/xv6-riscv/user/grep.c
 
 CMakeFiles/xv6_riscv.dir/user/grep.c.i: cmake_force
@@ -478,7 +548,7 @@ CMakeFiles/xv6_riscv.dir/user/grep.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/grind.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/grind.c.o: /Users/manely/Documents/xv6-riscv/user/grind.c
 CMakeFiles/xv6_riscv.dir/user/grind.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/xv6_riscv.dir/user/grind.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/xv6_riscv.dir/user/grind.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/grind.c.o -MF CMakeFiles/xv6_riscv.dir/user/grind.c.o.d -o CMakeFiles/xv6_riscv.dir/user/grind.c.o -c /Users/manely/Documents/xv6-riscv/user/grind.c
 
 CMakeFiles/xv6_riscv.dir/user/grind.c.i: cmake_force
@@ -492,7 +562,7 @@ CMakeFiles/xv6_riscv.dir/user/grind.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/init.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/init.c.o: /Users/manely/Documents/xv6-riscv/user/init.c
 CMakeFiles/xv6_riscv.dir/user/init.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/xv6_riscv.dir/user/init.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/xv6_riscv.dir/user/init.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/init.c.o -MF CMakeFiles/xv6_riscv.dir/user/init.c.o.d -o CMakeFiles/xv6_riscv.dir/user/init.c.o -c /Users/manely/Documents/xv6-riscv/user/init.c
 
 CMakeFiles/xv6_riscv.dir/user/init.c.i: cmake_force
@@ -506,7 +576,7 @@ CMakeFiles/xv6_riscv.dir/user/init.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/kill.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/kill.c.o: /Users/manely/Documents/xv6-riscv/user/kill.c
 CMakeFiles/xv6_riscv.dir/user/kill.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/xv6_riscv.dir/user/kill.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/xv6_riscv.dir/user/kill.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/kill.c.o -MF CMakeFiles/xv6_riscv.dir/user/kill.c.o.d -o CMakeFiles/xv6_riscv.dir/user/kill.c.o -c /Users/manely/Documents/xv6-riscv/user/kill.c
 
 CMakeFiles/xv6_riscv.dir/user/kill.c.i: cmake_force
@@ -520,7 +590,7 @@ CMakeFiles/xv6_riscv.dir/user/kill.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/ln.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/ln.c.o: /Users/manely/Documents/xv6-riscv/user/ln.c
 CMakeFiles/xv6_riscv.dir/user/ln.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/xv6_riscv.dir/user/ln.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/xv6_riscv.dir/user/ln.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/ln.c.o -MF CMakeFiles/xv6_riscv.dir/user/ln.c.o.d -o CMakeFiles/xv6_riscv.dir/user/ln.c.o -c /Users/manely/Documents/xv6-riscv/user/ln.c
 
 CMakeFiles/xv6_riscv.dir/user/ln.c.i: cmake_force
@@ -534,7 +604,7 @@ CMakeFiles/xv6_riscv.dir/user/ln.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/ls.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/ls.c.o: /Users/manely/Documents/xv6-riscv/user/ls.c
 CMakeFiles/xv6_riscv.dir/user/ls.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/xv6_riscv.dir/user/ls.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/xv6_riscv.dir/user/ls.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/ls.c.o -MF CMakeFiles/xv6_riscv.dir/user/ls.c.o.d -o CMakeFiles/xv6_riscv.dir/user/ls.c.o -c /Users/manely/Documents/xv6-riscv/user/ls.c
 
 CMakeFiles/xv6_riscv.dir/user/ls.c.i: cmake_force
@@ -548,7 +618,7 @@ CMakeFiles/xv6_riscv.dir/user/ls.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/mkdir.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/mkdir.c.o: /Users/manely/Documents/xv6-riscv/user/mkdir.c
 CMakeFiles/xv6_riscv.dir/user/mkdir.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/xv6_riscv.dir/user/mkdir.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/xv6_riscv.dir/user/mkdir.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/mkdir.c.o -MF CMakeFiles/xv6_riscv.dir/user/mkdir.c.o.d -o CMakeFiles/xv6_riscv.dir/user/mkdir.c.o -c /Users/manely/Documents/xv6-riscv/user/mkdir.c
 
 CMakeFiles/xv6_riscv.dir/user/mkdir.c.i: cmake_force
@@ -562,7 +632,7 @@ CMakeFiles/xv6_riscv.dir/user/mkdir.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/printf.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/printf.c.o: /Users/manely/Documents/xv6-riscv/user/printf.c
 CMakeFiles/xv6_riscv.dir/user/printf.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/xv6_riscv.dir/user/printf.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/xv6_riscv.dir/user/printf.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/printf.c.o -MF CMakeFiles/xv6_riscv.dir/user/printf.c.o.d -o CMakeFiles/xv6_riscv.dir/user/printf.c.o -c /Users/manely/Documents/xv6-riscv/user/printf.c
 
 CMakeFiles/xv6_riscv.dir/user/printf.c.i: cmake_force
@@ -576,7 +646,7 @@ CMakeFiles/xv6_riscv.dir/user/printf.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/rm.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/rm.c.o: /Users/manely/Documents/xv6-riscv/user/rm.c
 CMakeFiles/xv6_riscv.dir/user/rm.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/xv6_riscv.dir/user/rm.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/xv6_riscv.dir/user/rm.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/rm.c.o -MF CMakeFiles/xv6_riscv.dir/user/rm.c.o.d -o CMakeFiles/xv6_riscv.dir/user/rm.c.o -c /Users/manely/Documents/xv6-riscv/user/rm.c
 
 CMakeFiles/xv6_riscv.dir/user/rm.c.i: cmake_force
@@ -590,7 +660,7 @@ CMakeFiles/xv6_riscv.dir/user/rm.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/sh.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/sh.c.o: /Users/manely/Documents/xv6-riscv/user/sh.c
 CMakeFiles/xv6_riscv.dir/user/sh.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/xv6_riscv.dir/user/sh.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/xv6_riscv.dir/user/sh.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/sh.c.o -MF CMakeFiles/xv6_riscv.dir/user/sh.c.o.d -o CMakeFiles/xv6_riscv.dir/user/sh.c.o -c /Users/manely/Documents/xv6-riscv/user/sh.c
 
 CMakeFiles/xv6_riscv.dir/user/sh.c.i: cmake_force
@@ -604,7 +674,7 @@ CMakeFiles/xv6_riscv.dir/user/sh.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/stressfs.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/stressfs.c.o: /Users/manely/Documents/xv6-riscv/user/stressfs.c
 CMakeFiles/xv6_riscv.dir/user/stressfs.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/xv6_riscv.dir/user/stressfs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/xv6_riscv.dir/user/stressfs.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/stressfs.c.o -MF CMakeFiles/xv6_riscv.dir/user/stressfs.c.o.d -o CMakeFiles/xv6_riscv.dir/user/stressfs.c.o -c /Users/manely/Documents/xv6-riscv/user/stressfs.c
 
 CMakeFiles/xv6_riscv.dir/user/stressfs.c.i: cmake_force
@@ -618,7 +688,7 @@ CMakeFiles/xv6_riscv.dir/user/stressfs.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/ulib.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/ulib.c.o: /Users/manely/Documents/xv6-riscv/user/ulib.c
 CMakeFiles/xv6_riscv.dir/user/ulib.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/xv6_riscv.dir/user/ulib.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/xv6_riscv.dir/user/ulib.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/ulib.c.o -MF CMakeFiles/xv6_riscv.dir/user/ulib.c.o.d -o CMakeFiles/xv6_riscv.dir/user/ulib.c.o -c /Users/manely/Documents/xv6-riscv/user/ulib.c
 
 CMakeFiles/xv6_riscv.dir/user/ulib.c.i: cmake_force
@@ -632,7 +702,7 @@ CMakeFiles/xv6_riscv.dir/user/ulib.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/umalloc.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/umalloc.c.o: /Users/manely/Documents/xv6-riscv/user/umalloc.c
 CMakeFiles/xv6_riscv.dir/user/umalloc.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/xv6_riscv.dir/user/umalloc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/xv6_riscv.dir/user/umalloc.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/umalloc.c.o -MF CMakeFiles/xv6_riscv.dir/user/umalloc.c.o.d -o CMakeFiles/xv6_riscv.dir/user/umalloc.c.o -c /Users/manely/Documents/xv6-riscv/user/umalloc.c
 
 CMakeFiles/xv6_riscv.dir/user/umalloc.c.i: cmake_force
@@ -646,7 +716,7 @@ CMakeFiles/xv6_riscv.dir/user/umalloc.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/usertests.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/usertests.c.o: /Users/manely/Documents/xv6-riscv/user/usertests.c
 CMakeFiles/xv6_riscv.dir/user/usertests.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/xv6_riscv.dir/user/usertests.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building C object CMakeFiles/xv6_riscv.dir/user/usertests.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/usertests.c.o -MF CMakeFiles/xv6_riscv.dir/user/usertests.c.o.d -o CMakeFiles/xv6_riscv.dir/user/usertests.c.o -c /Users/manely/Documents/xv6-riscv/user/usertests.c
 
 CMakeFiles/xv6_riscv.dir/user/usertests.c.i: cmake_force
@@ -660,7 +730,7 @@ CMakeFiles/xv6_riscv.dir/user/usertests.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/wc.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/wc.c.o: /Users/manely/Documents/xv6-riscv/user/wc.c
 CMakeFiles/xv6_riscv.dir/user/wc.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/xv6_riscv.dir/user/wc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building C object CMakeFiles/xv6_riscv.dir/user/wc.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/wc.c.o -MF CMakeFiles/xv6_riscv.dir/user/wc.c.o.d -o CMakeFiles/xv6_riscv.dir/user/wc.c.o -c /Users/manely/Documents/xv6-riscv/user/wc.c
 
 CMakeFiles/xv6_riscv.dir/user/wc.c.i: cmake_force
@@ -674,7 +744,7 @@ CMakeFiles/xv6_riscv.dir/user/wc.c.s: cmake_force
 CMakeFiles/xv6_riscv.dir/user/zombie.c.o: CMakeFiles/xv6_riscv.dir/flags.make
 CMakeFiles/xv6_riscv.dir/user/zombie.c.o: /Users/manely/Documents/xv6-riscv/user/zombie.c
 CMakeFiles/xv6_riscv.dir/user/zombie.c.o: CMakeFiles/xv6_riscv.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/xv6_riscv.dir/user/zombie.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/xv6_riscv.dir/user/zombie.c.o"
 	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/xv6_riscv.dir/user/zombie.c.o -MF CMakeFiles/xv6_riscv.dir/user/zombie.c.o.d -o CMakeFiles/xv6_riscv.dir/user/zombie.c.o -c /Users/manely/Documents/xv6-riscv/user/zombie.c
 
 CMakeFiles/xv6_riscv.dir/user/zombie.c.i: cmake_force
@@ -712,7 +782,12 @@ xv6_riscv_OBJECTS = \
 "CMakeFiles/xv6_riscv.dir/kernel/vm.c.o" \
 "CMakeFiles/xv6_riscv.dir/mkfs/mkfs.c.o" \
 "CMakeFiles/xv6_riscv.dir/user/cat.c.o" \
-"CMakeFiles/xv6_riscv.dir/user/cp.c.o" \
+"CMakeFiles/xv6_riscv.dir/user/children.c.o" \
+"CMakeFiles/xv6_riscv.dir/user/childrentest.c.o" \
+"CMakeFiles/xv6_riscv.dir/user/killall.c.o" \
+"CMakeFiles/xv6_riscv.dir/user/reptest.c.o" \
+"CMakeFiles/xv6_riscv.dir/user/sysrep.c.o" \
+"CMakeFiles/xv6_riscv.dir/user/myrep.c.o" \
 "CMakeFiles/xv6_riscv.dir/user/echo.c.o" \
 "CMakeFiles/xv6_riscv.dir/user/forktest.c.o" \
 "CMakeFiles/xv6_riscv.dir/user/grep.c.o" \
@@ -760,7 +835,12 @@ xv6_riscv: CMakeFiles/xv6_riscv.dir/kernel/virtio_disk.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/kernel/vm.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/mkfs/mkfs.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/user/cat.c.o
-xv6_riscv: CMakeFiles/xv6_riscv.dir/user/cp.c.o
+xv6_riscv: CMakeFiles/xv6_riscv.dir/user/children.c.o
+xv6_riscv: CMakeFiles/xv6_riscv.dir/user/childrentest.c.o
+xv6_riscv: CMakeFiles/xv6_riscv.dir/user/killall.c.o
+xv6_riscv: CMakeFiles/xv6_riscv.dir/user/reptest.c.o
+xv6_riscv: CMakeFiles/xv6_riscv.dir/user/sysrep.c.o
+xv6_riscv: CMakeFiles/xv6_riscv.dir/user/myrep.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/user/echo.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/user/forktest.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/user/grep.c.o
@@ -781,7 +861,7 @@ xv6_riscv: CMakeFiles/xv6_riscv.dir/user/wc.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/user/zombie.c.o
 xv6_riscv: CMakeFiles/xv6_riscv.dir/build.make
 xv6_riscv: CMakeFiles/xv6_riscv.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Linking C executable xv6_riscv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/manely/Documents/xv6-riscv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Linking C executable xv6_riscv"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/xv6_riscv.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
