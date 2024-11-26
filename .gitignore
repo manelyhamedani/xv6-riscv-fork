@@ -15,3 +15,9 @@ mkfs
 kernel/kernel
 user/usys.S
 .gdbinit
+.idea/
+.vscode/
+build/
+cmake-build-debug/
+.DS_Store
+
