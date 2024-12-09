@@ -782,4 +782,53 @@ int sysrep(struct report_traps *rt) {
   return 0;
 }
 
+int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
+  struct proc *p = myproc();
+  int tid = -1;
+  
+  acquire(&p->lock);
 
+  if (p->threads[0].state == THREAD_FREE) {
+    // add main thread
+    p->threads[0].state = THREAD_RUNNING;
+    p->threads[0].id = alloctid();
+    p->threads[0].join = 0;
+    p->threads[0].trapframe = (struct trapframe *) kalloc();
+    memmove(p->threads[0].trapframe, p->trapframe, sizeof(struct trapframe));
+    p->threads[0].cpu = mycpu();
+
+    p->running_threads[0] = &p->threads[0];
+    p->running_threads_count++;
+  }
+
+  for (int i = 0; i < MAX_THREAD; ++i) {
+    if (p->threads[i].state == THREAD_FREE) {
+      p->threads[i].state = THREAD_RUNNABLE;
+      p->threads[i].id = alloctid();
+      p->threads[i].join = 0;
+      p->threads[i].trapframe = (struct trapframe *) kalloc();
+      p->threads[i].cpu = NULL;
+
+      // initialize trapframe
+      p->threads[i].trapframe->epc = (uint64) runner;
+      p->threads[i].trapframe->sp = (uint64) stack->mem + stack->size;  // point to the top of stack
+      p->threads[i].trapframe->a0 = (uint64) arg;
+      p->threads[i].trapframe->ra = (uint64) -1;
+
+      tid = p->threads[i].id;
+      break;
+    }
+  }
+
+  release(&p->lock);
+  return tid;
+
+}
+
+int join_thread(int tid) {
+
+}
+
+int stop_thread(int tid) {
+
+}
