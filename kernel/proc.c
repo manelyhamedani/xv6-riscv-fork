@@ -129,6 +129,12 @@ allocproc(void)
 found:
   p->pid = allocpid();
   p->state = USED;
+  p->running_threads_count = 0;
+  p->last_running_thread = NULL;
+
+  memset(p->threads, 0, sizeof(p->threads));
+  memset(p->running_threads, 0, sizeof(p->running_threads));
+  memset(p->threads_lock, 0, sizeof(p->threads_lock));
 
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
