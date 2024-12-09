@@ -445,6 +445,30 @@ wait(uint64 addr)
   }
 }
 
+struct thread *running_thread() {
+  struct proc *p = mycpu()->proc;
+
+  if (p != NULL) {
+    if (!holding(&p->lock)) {
+      panic("running_thread p->lock");
+    }
+
+    if (p->running_threads_count == 0) {
+      return NULL;
+    }
+
+    for (int i = 0; i < MAX_THREAD; ++i) {
+      if (p->running_threads[i] != NULL && p->running_threads[i]->cpu == mycpu()) {
+        return p->running_threads[i];
+      }
+    }
+
+  }
+
+  return NULL;
+}
+
+
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
 // Scheduler never returns.  It loops, doing:

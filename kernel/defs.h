@@ -118,7 +118,7 @@ int             sysrep(struct report_traps *rt);
 int             create_thread(void *(*)(void *), void *, struct stack *);
 int             join_thread(int tid);
 int             stop_thread(int tid);
-void*           runner_wrapper(void *);
+struct thread*  running_thread();
 
 // swtch.S
 void            swtch(struct context*, struct context*);
