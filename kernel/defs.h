@@ -10,6 +10,8 @@ struct stat;
 struct superblock;
 struct child_processes;
 struct report_traps;
+struct thread;
+struct stack;
 
 
 // bio.c
@@ -113,6 +115,10 @@ void            procdump(void);
 int             child_processes(struct child_processes*);
 int             myrep(struct report_traps*);
 int             sysrep(struct report_traps *rt);
+int             create_thread(void *(*)(void *), void *, struct stack *);
+int             join_thread(int tid);
+int             stop_thread(int tid);
+void*           runner_wrapper(void *);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

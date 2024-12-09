@@ -124,3 +124,31 @@ uint64 sys_sysrep(void) {
   copyout(p->pagetable, (uint64) rt, (char *) &krt, sizeof(krt));
   return xstat;
 }
+
+uint64 sys_create_thread(void) {
+  void *(*runner)(void *);
+  void *arg;
+  void *stack;
+  
+  argaddr(0, (uint64 *) &runner);
+  argaddr(1, (uint64 *) &arg);
+  argaddr(2, (uint64 *) &stack);  
+
+  return create_thread(runner, (void *) arg, &stack);
+}
+
+uint64 sys_join_thread(void) {
+  int tid;
+
+  argint(0, &tid);
+
+  return join_thread(tid);
+}
+
+uint64 sys_stop_thread(void) {
+  int tid;
+
+  argint(0, &tid);
+
+  return stop_thread(tid);
+}

@@ -24,3 +24,6 @@
 #define SYS_myrep           23
 #define SYS_seek            24
 #define SYS_sysrep          25
+#define SYS_create_thread   26
+#define SYS_join_thread     27
+#define SYS_stop_thread     28
