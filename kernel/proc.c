@@ -856,7 +856,28 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
 }
 
 int join_thread(int tid) {
+  struct proc *p = myproc();
+  struct thread *t;
 
+  acquire(&p->lock);
+
+  for (int i = 0; i < MAX_THREAD; ++i) {
+    if (p->threads[i].id == tid && p->threads[i].state != THREAD_FREE) {
+      t = running_thread(mycpu());
+
+      t->join = tid;
+      t->state = THREAD_JOINED;
+      p->running_threads_count--;
+
+      release(&p->lock);
+      yield();
+      return 0;
+    }
+  }
+
+  // no thread exists with the specified thread ID (tid)
+  release(&p->lock);
+  return -1;
 }
 
 int stop_thread(int tid) {
