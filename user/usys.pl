@@ -40,3 +40,6 @@ entry("child_processes");
 entry("myrep");
 entry("seek");
 entry("sysrep");
+entry("create_thread");
+entry("join_thread");
+entry("stop_thread");

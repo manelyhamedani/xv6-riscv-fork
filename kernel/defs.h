@@ -116,8 +116,8 @@ int             child_processes(struct child_processes*);
 int             myrep(struct report_traps*);
 int             sysrep(struct report_traps *rt);
 int             create_thread(void *(*)(void *), void *, struct stack *);
-int             join_thread(int tid);
-int             stop_thread(int tid);
+int             join_thread(int);
+int             stop_thread(int);
 struct thread*  running_thread();
 
 // swtch.S

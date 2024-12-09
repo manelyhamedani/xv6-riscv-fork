@@ -1,6 +1,7 @@
 struct stat;
 struct child_processes;
 struct report_traps;
+struct stack;
 
 // system calls
 int fork(void);
@@ -28,6 +29,9 @@ int child_processes(struct child_processes*);
 int myrep(struct report_traps*);
 int seek(int, int, int);
 int sysrep(struct report_traps*);
+int create_thread(void *(*)(void *), void *, struct stack *);
+int join_thread(int);
+int stop_thread(int);
 
 // ulib.c
 int stat(const char*, struct stat*);
