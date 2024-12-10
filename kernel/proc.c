@@ -20,6 +20,9 @@ struct proc *initproc;
 int nextpid = 1;
 struct spinlock pid_lock;
 
+int nexttid = 1;
+struct spinlock tid_lock;
+
 extern void forkret(void);
 static void freeproc(struct proc *p);
 
@@ -55,6 +58,7 @@ procinit(void)
   struct proc *p;
   
   initlock(&pid_lock, "nextpid");
+  initlock(&tid_lock, "nexttid");
   initlock(&wait_lock, "wait_lock");
   for(p = proc; p < &proc[NPROC]; p++) {
       initlock(&p->lock, "proc");
@@ -107,6 +111,17 @@ allocpid()
   return pid;
 }
 
+int alloctid() {
+  int tid;
+
+  acquire(&tid_lock);
+  tid = nexttid;
+  nexttid++;
+  release(&tid_lock);
+
+  return tid;
+}
+
 // Look in the process table for an UNUSED proc.
 // If found, initialize state required to run in the kernel,
 // and return with p->lock held.
@@ -130,11 +145,16 @@ found:
   p->pid = allocpid();
   p->state = USED;
   p->running_threads_count = 0;
-  p->last_running_thread = NULL;
+  p->last_running_thread_index = 0;
 
   memset(p->threads, 0, sizeof(p->threads));
   memset(p->running_threads, 0, sizeof(p->running_threads));
-  memset(p->threads_lock, 0, sizeof(p->threads_lock));
+  
+  for (int i = 0; i < MAX_THREAD; ++i) {
+    initlock(&p->threads_lock[i], "thread_lock");
+  }
+
+  initlock(&p->threads_count_lock, "thread_count_lock");
 
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
@@ -817,7 +837,9 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
   int tid = -1;
   
   acquire(&p->lock);
+  acquire(&p->threads_count_lock);
 
+  acquire(&p->threads_lock[0]);
   if (p->threads[0].state == THREAD_FREE) {
     // add main thread
     p->threads[0].state = THREAD_RUNNING;
@@ -830,8 +852,11 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
     p->running_threads[0] = &p->threads[0];
     p->running_threads_count++;
   }
+  release(&p->threads_lock[0]);
 
   for (int i = 0; i < MAX_THREAD; ++i) {
+    acquire(&p->threads_lock[i]);
+
     if (p->threads[i].state == THREAD_FREE) {
       p->threads[i].state = THREAD_RUNNABLE;
       p->threads[i].id = alloctid();
@@ -846,10 +871,15 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
       p->threads[i].trapframe->ra = (uint64) -1;
 
       tid = p->threads[i].id;
+
+      release(&p->threads_lock[i]);
       break;
     }
+
+    release(&p->threads_lock[i]);
   }
 
+  release(&p->threads_count_lock);
   release(&p->lock);
   return tid;
 

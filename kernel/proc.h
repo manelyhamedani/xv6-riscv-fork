@@ -123,8 +123,9 @@ struct proc {
   // threads
   struct thread *running_threads[MAX_THREAD];
   struct thread threads[MAX_THREAD];
-  struct thread *last_running_thread;
   struct spinlock threads_lock[MAX_THREAD];
+  struct spinlock threads_count_lock;
+  int last_running_thread_index;
   int running_threads_count;
 };
 
