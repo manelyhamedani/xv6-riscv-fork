@@ -76,6 +76,13 @@ usertrap(void)
   } else if((which_dev = devintr()) != 0){
     // ok
   } else {
+
+    if (p->trapframe->ra == (uint64) -1) {
+      thread_cleanup();
+      usertrapret();
+      return;
+    }
+
     printf("usertrap(): unexpected scause 0x%lx pid=%d\n", r_scause(), p->pid);
     printf("            sepc=0x%lx stval=0x%lx\n", r_sepc(), r_stval());
     log_trap();
@@ -277,4 +284,38 @@ void log_trap() {
   r.ancestors_count = ac;
 
   store_trap(r);
+}
+
+void thread_cleanup() {
+  struct proc *p = myproc();
+  struct cpu *c = mycpu();
+  struct thread *t;
+
+  acquire(&p->lock);
+  
+  for (int i = 0; i < MAX_THREAD; ++i) {
+    if ((t = running_thread()) != NULL) {
+        
+        t->cpu = NULL;
+        t->state = THREAD_FREE;
+        kfree(t->trapframe);
+
+        // wakeup joined threads
+        for (int j = 0; j < MAX_THREAD; ++j) {
+          if (p->threads[j].join == t->id) {
+              p->threads[j].join = 0;
+              if (p->threads[j].state == THREAD_JOINED) {
+                p->threads[j].state = THREAD_RUNNABLE;
+              }
+          }
+        }
+
+        p->running_threads_count--;
+        break;
+    }
+  }
+
+  release(&p->lock);
+ 
+  yield();
 }
