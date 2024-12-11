@@ -31,6 +31,12 @@ w_mstatus(uint64 x)
   asm volatile("csrw mstatus, %0" : : "r" (x));
 }
 
+static inline void
+w_sscratch(uint64 x)
+{
+  asm volatile("csrw sscratch, %0" : : "r" (x));
+}
+
 // machine exception program counter, holds the
 // instruction address to which a return from
 // exception will go.
