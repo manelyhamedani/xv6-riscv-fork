@@ -145,7 +145,7 @@ found:
   p->pid = allocpid();
   p->state = USED;
   p->last_running_thread_index = 0;
-  p->running_threads_count = 1;
+  p->running_threads_count = 0;
 
   memset(p->threads, 0, sizeof(p->threads));
   
@@ -500,13 +500,14 @@ scheduler(void)
     intr_on();
 
     int found = 0;
+    int temp_found = 0;
     for(p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
-      if(p->state == RUNNABLE || p->state == RUNNING) {
+      if (p->state == RUNNABLE) {
         // just main thread
-        if (p->state == RUNNABLE && p->threads[0].state == THREAD_FREE) {
+        if (p->threads[0].state == THREAD_FREE) {
           tf = p->trapframe;
-          found = 1;
+          temp_found = 1;
         }
         else {
           int next_thread = p->last_running_thread_index;
@@ -528,7 +529,7 @@ scheduler(void)
               p->last_running_thread_index = next_thread;
 
               tf = t->trapframe;
-              found = 1;
+              temp_found = 1;
 
               break;
             }
@@ -537,24 +538,23 @@ scheduler(void)
         // Switch to chosen process.  It is the process's job
         // to release its lock and then reacquire it
         // before jumping back to us.
-        if (found) {
+        if (temp_found) {
           p->state = RUNNING;
           p->running_threads_count++;
-          release(&p->lock);
-          c->proc = p;
-          w_sscratch((uint64) tf);
+          c->proc = p;    
+          // tf = (uint64) (TRAPFRAME - trapframe_index * PGSIZE);
+          // p->trapframe->t6 = tf;
+          memmove(p->trapframe, tf, sizeof(struct trapframe));
           swtch(&c->context, &p->context);
           // Process is done running for now.
           // It should have changed its p->state before coming back.
           c->proc = 0;
-          acquire(&p->lock);
-          p->running_threads_count--;
-          release(&p->lock);
-        }
-        else {
-          release(&p->lock);
+          found = 1;
+        
         }
       }
+      temp_found = 0;
+      release(&p->lock);
     }
     if(found == 0) {
       // nothing to run; stop running on this core until an interrupt.
@@ -582,7 +582,7 @@ sched(void)
     panic("sched p->lock");
   if(mycpu()->noff != 1)
     panic("sched locks");
-  if(p->state == RUNNING)
+  if(p->state == RUNNING && p->running_threads_count == 0)
     panic("sched running");
   if(intr_get())
     panic("sched interruptible");
@@ -590,12 +590,13 @@ sched(void)
   intena = mycpu()->intena;
 
   if ((t = running_thread()) != NULL) {
+    memmove(t->trapframe, mycpu()->proc->trapframe, sizeof(struct trapframe));
     t->state = THREAD_RUNNABLE;
     t->cpu = NULL;
     p->running_threads_count--;
-    if (p->running_threads_count == 0) {
-      p->state = RUNNABLE;
-    }
+    // if (p->running_threads_count == 0) {
+    //   p->state = RUNNABLE;
+    // }
   }
   swtch(&p->context, &mycpu()->context);
   mycpu()->intena = intena;
@@ -607,6 +608,7 @@ yield(void)
 {
   struct proc *p = myproc();
   acquire(&p->lock);
+  p->state = RUNNABLE;
   sched();
   release(&p->lock);
 }
@@ -883,6 +885,7 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
     p->threads[0].join = 0;
     p->threads[0].trapframe = (struct trapframe *) kalloc();
     memmove(p->threads[0].trapframe, p->trapframe, sizeof(struct trapframe));
+    p->threads[0].trapframe->ra = -1;
     p->threads[0].cpu = mycpu();
   }
 
@@ -922,12 +925,14 @@ int join_thread(int tid) {
   for (int i = 0; i < MAX_THREAD; ++i) {
     if (p->threads[i].id == tid && p->threads[i].state != THREAD_FREE) {
       t = running_thread(mycpu());
+      printf("thread %d join on %d\n", t->id, tid);
 
       t->join = tid;
       t->state = THREAD_JOINED;
 
       release(&p->lock);
       yield();
+      printf("after yield state of %d is %d\n", t->id, t->state);
       return 0;
     }
   }
@@ -938,5 +943,5 @@ int join_thread(int tid) {
 }
 
 int stop_thread(int tid) {
-
+  return 0;
 }

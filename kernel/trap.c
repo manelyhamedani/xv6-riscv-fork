@@ -23,6 +23,7 @@ void kernelvec();
 
 extern int devintr();
 extern void log_trap();
+extern void thread_cleanup();
 
 void
 trapinit(void)
@@ -288,30 +289,34 @@ void log_trap() {
 
 void thread_cleanup() {
   struct proc *p = myproc();
-  struct cpu *c = mycpu();
   struct thread *t;
 
   acquire(&p->lock);
   
-  for (int i = 0; i < MAX_THREAD; ++i) {
-    if ((t = running_thread()) != NULL) {
-        
-        t->cpu = NULL;
-        t->state = THREAD_FREE;
-        kfree(t->trapframe);
+  if ((t = running_thread()) != NULL) {
+    // printf("cleaning up %d\n", t->id);
+    t->cpu = NULL;
+    t->state = THREAD_FREE;
+    kfree(t->trapframe);
 
-        // wakeup joined threads
-        for (int j = 0; j < MAX_THREAD; ++j) {
-          if (p->threads[j].join == t->id) {
-              p->threads[j].join = 0;
-              if (p->threads[j].state == THREAD_JOINED) {
-                p->threads[j].state = THREAD_RUNNABLE;
-              }
-          }
-        }
+    // main thread cleanup terminates entire process
+    if (p->threads[0].state == THREAD_FREE) {
+      for (int i = 0; i < MAX_THREAD; ++i) {
+        p->threads[i].state = THREAD_FREE;
+        p->threads[i].cpu = NULL;
+        kfree(p->threads[i].trapframe);
+      }
+      // printf("exiting\n");
+      release(&p->lock);
+      exit(0);
+    }
 
-        p->running_threads_count--;
-        break;
+    // wakeup joined threads
+    for (int i = 0; i < MAX_THREAD; ++i) {
+      if (p->threads[i].state == THREAD_JOINED && p->threads[i].join == t->id) {
+          p->threads[i].join = 0;
+          p->threads[i].state = THREAD_RUNNABLE;
+      }
     }
   }
 

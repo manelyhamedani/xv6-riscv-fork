@@ -8,22 +8,22 @@
 volatile int a = 0, b = 0, c = 0;
 
 void *my_thread(void *arg) {
-    int *number = arg;
+    // int *number = arg;
 
-    for (int i = 0; i < 100; ++i) {
-        (*number)++;
+    // for (int i = 0; i < 100; ++i) {
+    //     (*number)++;
 
-        if (number == &a) {
-            printf("thread a: %d\n", *number);
-        }
-        else if (number == &b) {
-            printf("thread b: %d\n", *number);
-        }
-        else if (number == &c) {
-            printf("thread c: %d\n", *number);
-        }
-    }
-
+    //     if (number == &a) {
+    //         printf("thread a: %d\n", *number);
+    //     }
+    //     else if (number == &b) {
+    //         printf("thread b: %d\n", *number);
+    //     }
+    //     else if (number == &c) {
+    //         printf("thread c: %d\n", *number);
+    //     }
+    // }
+    printf("runner function of thread %p\n", (int *) arg);
     return 0;
 }
 
@@ -45,10 +45,17 @@ int main() {
     int tb = create_thread(my_thread, (void *) &b, (struct stack *) &bstack);
     int tc = create_thread(my_thread, (void *) &c, (struct stack *) &cstack);
 
-    
-    join_thread(ta);
+    // while(1) {
+    //     // printf("while\n");
+    // }
+    printf("joining on %d\n", ta);
+    int rv = join_thread(ta);
+    printf("join rv: %d\n", rv);
+    printf("joined to ta finished\n");
     join_thread(tb);
+    printf("joined to tb finished\n");
     join_thread(tc);
+    printf("joined to tc finished\n");
 
     exit(0);
 
