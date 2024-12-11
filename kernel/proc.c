@@ -144,18 +144,11 @@ allocproc(void)
 found:
   p->pid = allocpid();
   p->state = USED;
-  p->running_threads_count = 0;
   p->last_running_thread_index = 0;
+  p->running_threads_count = 1;
 
   memset(p->threads, 0, sizeof(p->threads));
-  memset(p->running_threads, 0, sizeof(p->running_threads));
   
-  for (int i = 0; i < MAX_THREAD; ++i) {
-    initlock(&p->threads_lock[i], "thread_lock");
-  }
-
-  initlock(&p->threads_count_lock, "thread_count_lock");
-
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
     freeproc(p);
@@ -473,13 +466,9 @@ struct thread *running_thread() {
       panic("running_thread p->lock");
     }
 
-    if (p->running_threads_count == 0) {
-      return NULL;
-    }
-
     for (int i = 0; i < MAX_THREAD; ++i) {
-      if (p->running_threads[i] != NULL && p->running_threads[i]->cpu == mycpu()) {
-        return p->running_threads[i];
+      if (p->threads[i].state == THREAD_RUNNING && p->threads[i].cpu == mycpu()) {
+        return &p->threads[i];
       }
     }
 
@@ -501,6 +490,7 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  struct trapframe *tf;
 
   c->proc = 0;
   for(;;){
@@ -512,20 +502,59 @@ scheduler(void)
     int found = 0;
     for(p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
-      if(p->state == RUNNABLE) {
+      if(p->state == RUNNABLE || p->state == RUNNING) {
+        // just main thread
+        if (p->state == RUNNABLE && p->threads[0].state == THREAD_FREE) {
+          tf = p->trapframe;
+          found = 1;
+        }
+        else {
+          int next_thread = p->last_running_thread_index;
+          struct thread *t;
+          
+          for (int i = 0; i < MAX_THREAD; ++i) {
+            next_thread++;
+
+            if (next_thread >= MAX_THREAD) {
+              next_thread = 0;
+            }
+            
+            t = &p->threads[next_thread];
+
+            if (t->state == THREAD_RUNNABLE) {
+              t->state = THREAD_RUNNING;
+              t->cpu = mycpu();
+
+              p->last_running_thread_index = next_thread;
+
+              tf = t->trapframe;
+              found = 1;
+
+              break;
+            }
+          }
+        }
         // Switch to chosen process.  It is the process's job
         // to release its lock and then reacquire it
         // before jumping back to us.
-        p->state = RUNNING;
-        c->proc = p;
-        swtch(&c->context, &p->context);
-
-        // Process is done running for now.
-        // It should have changed its p->state before coming back.
-        c->proc = 0;
-        found = 1;
+        if (found) {
+          p->state = RUNNING;
+          p->running_threads_count++;
+          release(&p->lock);
+          c->proc = p;
+          w_sscratch((uint64) tf);
+          swtch(&c->context, &p->context);
+          // Process is done running for now.
+          // It should have changed its p->state before coming back.
+          c->proc = 0;
+          acquire(&p->lock);
+          p->running_threads_count--;
+          release(&p->lock);
+        }
+        else {
+          release(&p->lock);
+        }
       }
-      release(&p->lock);
     }
     if(found == 0) {
       // nothing to run; stop running on this core until an interrupt.
@@ -547,6 +576,7 @@ sched(void)
 {
   int intena;
   struct proc *p = myproc();
+  struct thread *t;
 
   if(!holding(&p->lock))
     panic("sched p->lock");
@@ -558,6 +588,15 @@ sched(void)
     panic("sched interruptible");
 
   intena = mycpu()->intena;
+
+  if ((t = running_thread()) != NULL) {
+    t->state = THREAD_RUNNABLE;
+    t->cpu = NULL;
+    p->running_threads_count--;
+    if (p->running_threads_count == 0) {
+      p->state = RUNNABLE;
+    }
+  }
   swtch(&p->context, &mycpu()->context);
   mycpu()->intena = intena;
 }
@@ -568,7 +607,6 @@ yield(void)
 {
   struct proc *p = myproc();
   acquire(&p->lock);
-  p->state = RUNNABLE;
   sched();
   release(&p->lock);
 }
@@ -837,9 +875,7 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
   int tid = -1;
   
   acquire(&p->lock);
-  acquire(&p->threads_count_lock);
 
-  acquire(&p->threads_lock[0]);
   if (p->threads[0].state == THREAD_FREE) {
     // add main thread
     p->threads[0].state = THREAD_RUNNING;
@@ -848,14 +884,9 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
     p->threads[0].trapframe = (struct trapframe *) kalloc();
     memmove(p->threads[0].trapframe, p->trapframe, sizeof(struct trapframe));
     p->threads[0].cpu = mycpu();
-
-    p->running_threads[0] = &p->threads[0];
-    p->running_threads_count++;
   }
-  release(&p->threads_lock[0]);
 
   for (int i = 0; i < MAX_THREAD; ++i) {
-    acquire(&p->threads_lock[i]);
 
     if (p->threads[i].state == THREAD_FREE) {
       p->threads[i].state = THREAD_RUNNABLE;
@@ -872,14 +903,11 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
 
       tid = p->threads[i].id;
 
-      release(&p->threads_lock[i]);
       break;
     }
 
-    release(&p->threads_lock[i]);
   }
 
-  release(&p->threads_count_lock);
   release(&p->lock);
   return tid;
 
@@ -897,7 +925,6 @@ int join_thread(int tid) {
 
       t->join = tid;
       t->state = THREAD_JOINED;
-      p->running_threads_count--;
 
       release(&p->lock);
       yield();
