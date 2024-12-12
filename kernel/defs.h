@@ -115,7 +115,7 @@ void            procdump(void);
 int             child_processes(struct child_processes*);
 int             myrep(struct report_traps*);
 int             sysrep(struct report_traps *rt);
-int             create_thread(void *(*)(void *), void *, struct stack *);
+int             create_thread(void *(*)(void *), void *, void *);
 int             join_thread(int);
 int             stop_thread(int);
 struct thread*  running_thread();

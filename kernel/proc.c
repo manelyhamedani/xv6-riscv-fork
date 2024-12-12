@@ -491,8 +491,10 @@ scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
   struct trapframe *tf;
+  struct trapframe ptf;
 
   c->proc = 0;
+  c->thread = 0;
   for(;;){
     // The most recent process to run may have had interrupts
     // turned off; enable them to avoid a deadlock if all
@@ -525,12 +527,13 @@ scheduler(void)
             if (t->state == THREAD_RUNNABLE) {
               t->state = THREAD_RUNNING;
               t->cpu = mycpu();
+              c->thread = t;
 
               p->last_running_thread_index = next_thread;
 
               tf = t->trapframe;
               temp_found = 1;
-
+              // printf("run thread %d of proc %d on cpu %d\n", t->id, p->pid, cpuid());
               break;
             }
           }
@@ -544,11 +547,33 @@ scheduler(void)
           c->proc = p;    
           // tf = (uint64) (TRAPFRAME - trapframe_index * PGSIZE);
           // p->trapframe->t6 = tf;
-          memmove(p->trapframe, tf, sizeof(struct trapframe));
+          // memmove(ptf, p->trapframe, sizeof(struct trapframe));
+          // memmove(p->trapframe, tf, sizeof(struct trapframe));
+          // if (tf != p->trapframe) {
+          //   uvmunmap(p->pagetable, TRAPFRAME, 1, 0);
+          //   mappages(p->pagetable, TRAPFRAME, PGSIZE, (uint64)(tf), PTE_R | PTE_W);
+          // }
+          if (tf != p->trapframe) {
+            ptf = *(p->trapframe);
+            *(p->trapframe) = *tf;
+          }
+          // uvmunmap(p->pagetable, TRAPFRAME, 1, 0);
+          // if(mappages(p->pagetable, TRAPFRAME, PGSIZE,
+          //   (uint64)(tf), PTE_R | PTE_W) < 0){
+
+          //   printf("trapframe mapping failed\n");
+            
+          // }
           swtch(&c->context, &p->context);
+          // printf("after swtch from pid: %d\n", p->pid);
+          if (tf != p->trapframe) {
+            *(p->trapframe) = ptf;
+          }
+          // memmove(p->trapframe, ptf, sizeof(struct trapframe));
           // Process is done running for now.
           // It should have changed its p->state before coming back.
           c->proc = 0;
+          c->thread = 0;
           found = 1;
         
         }
@@ -589,15 +614,18 @@ sched(void)
 
   intena = mycpu()->intena;
 
-  if ((t = running_thread()) != NULL) {
-    memmove(t->trapframe, mycpu()->proc->trapframe, sizeof(struct trapframe));
+  if ((t = mycpu()->thread) != NULL) {
+    // memmove(t->trapframe, mycpu()->proc->trapframe, sizeof(struct trapframe));
+    if (t->trapframe != mycpu()->proc->trapframe) {
+      *(t->trapframe) = *(mycpu()->proc->trapframe);
+    }
     t->state = THREAD_RUNNABLE;
     t->cpu = NULL;
-    p->running_threads_count--;
     // if (p->running_threads_count == 0) {
     //   p->state = RUNNABLE;
     // }
   }
+  p->running_threads_count--;
   swtch(&p->context, &mycpu()->context);
   mycpu()->intena = intena;
 }
@@ -872,7 +900,7 @@ int sysrep(struct report_traps *rt) {
   return 0;
 }
 
-int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
+int create_thread(void *(*runner)(void *), void *arg, void *stack) {
   struct proc *p = myproc();
   int tid = -1;
   
@@ -883,9 +911,10 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
     p->threads[0].state = THREAD_RUNNING;
     p->threads[0].id = alloctid();
     p->threads[0].join = 0;
-    p->threads[0].trapframe = (struct trapframe *) kalloc();
-    memmove(p->threads[0].trapframe, p->trapframe, sizeof(struct trapframe));
-    p->threads[0].trapframe->ra = -1;
+    p->threads[0].trapframe = p->trapframe;
+    // p->threads[0].trapframe = (struct trapframe *) kalloc();
+    // memmove(p->threads[0].trapframe, p->trapframe, sizeof(struct trapframe));
+    // p->threads[0].trapframe->ra = -1;
     p->threads[0].cpu = mycpu();
   }
 
@@ -898,9 +927,10 @@ int create_thread(void *(*runner)(void *), void *arg, struct stack *stack) {
       p->threads[i].trapframe = (struct trapframe *) kalloc();
       p->threads[i].cpu = NULL;
 
+      printf("arg in create thread: %lu\n", (uint64) arg);
       // initialize trapframe
       p->threads[i].trapframe->epc = (uint64) runner;
-      p->threads[i].trapframe->sp = (uint64) stack->mem + stack->size;  // point to the top of stack
+      p->threads[i].trapframe->sp = (uint64) stack;  // point to the top of stack
       p->threads[i].trapframe->a0 = (uint64) arg;
       p->threads[i].trapframe->ra = (uint64) -1;
 
@@ -924,15 +954,18 @@ int join_thread(int tid) {
 
   for (int i = 0; i < MAX_THREAD; ++i) {
     if (p->threads[i].id == tid && p->threads[i].state != THREAD_FREE) {
-      t = running_thread(mycpu());
-      printf("thread %d join on %d\n", t->id, tid);
+      t = mycpu()->thread;
+      if (t == NULL) {
+        t = &p->threads[0];
+      }
+      // printf("thread %d join on %d\n", t->id, tid);
 
       t->join = tid;
       t->state = THREAD_JOINED;
 
       release(&p->lock);
       yield();
-      printf("after yield state of %d is %d\n", t->id, t->state);
+      // printf("after yield state of %d is %d\n", t->id, t->state);
       return 0;
     }
   }
