@@ -40,7 +40,7 @@ int main() {
 
     cstack.mem = (uint64) &cmem[0];
     cstack.size = sizeof(cmem);
-    // printf("astack: %lu\n", (uint64) &amem[199]);
+    // printf("astack: %p\n", (void *) &amem[199]);
 
     // printf("runner address %p\n", (void *) my_thread);
     // printf("a addres %p\n", (int *) &a);
