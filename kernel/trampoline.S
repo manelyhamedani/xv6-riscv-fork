@@ -13,6 +13,17 @@
 #include "riscv.h"
 #include "memlayout.h"
 
+#.extern trapframe_address
+
+#.section .data
+#.global trapframe_address
+#.global temp
+#trapframe_address:
+#        .dword  TRAPFRAME
+#temp:
+#        .space 8
+
+
 .section trampsec
 .globl trampoline
 .globl usertrap
@@ -34,9 +45,23 @@ uservec:
         # each process has a separate p->trapframe memory area,
         # but it's mapped to the same virtual address
         # (TRAPFRAME) in every process's user page table.
-        #mv a0, t6
         li a0, TRAPFRAME
-        
+
+        bnez t0, restore_t0_tf
+        bnez t1, restore_t1_tf
+        bnez t2, restore_t2_tf
+        j restore_tf
+
+restore_t0_tf:
+        li a0, TRAPFRAME1
+        j restore_tf
+restore_t1_tf:
+        li a0, TRAPFRAME2
+        j restore_tf
+restore_t2_tf:
+        li a0, TRAPFRAME3
+restore_tf:
+
         # save the user registers in TRAPFRAME
         sd ra, 40(a0)
         sd sp, 48(a0)
@@ -109,9 +134,26 @@ userret:
         sfence.vma zero, zero
         csrw satp, a0
         sfence.vma zero, zero
-
         li a0, TRAPFRAME
-        #mv a0, t6
+
+        sd t0, 72(a0)
+        sd t1, 80(a0)
+        sd t2, 88(a0)
+
+        bnez t0, load_t0_tf
+        bnez t1, load_t1_tf
+        bnez t2, load_t2_tf
+        j load_tf
+
+load_t0_tf:
+        li a0, TRAPFRAME1
+        j load_tf
+load_t1_tf:
+        li a0, TRAPFRAME2
+        j load_tf
+load_t2_tf:
+        li a0, TRAPFRAME3
+load_tf:
 
         # restore all but a0 from TRAPFRAME
         ld ra, 40(a0)

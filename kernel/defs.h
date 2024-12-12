@@ -123,6 +123,9 @@ struct thread*  running_thread();
 // swtch.S
 void            swtch(struct context*, struct context*);
 
+// tfaddr.S
+void            tfadd();
+
 // spinlock.c
 void            acquire(struct spinlock*);
 int             holding(struct spinlock*);
