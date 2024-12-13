@@ -146,7 +146,7 @@ uint64 sys_create_thread(void) {
   //   printf("copyin error in create thread\n");
   // }
 
-  printf("arg: %lu\n", (uint64) arg);
+  // printf("arg: %lu\n", (uint64) arg);
   // printf("stack: %lu\n", (uint64) stack);
   // printf("karg: %p\n", (void *) karg);
   return create_thread(runner, (void *) arg, (void *) stack);

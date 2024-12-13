@@ -119,6 +119,7 @@ int             create_thread(void *(*)(void *), void *, void *);
 int             join_thread(int);
 int             stop_thread(int);
 struct thread*  running_thread();
+int             thread_cleanup(int tid);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

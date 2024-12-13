@@ -490,8 +490,6 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
-  struct trapframe *tf;
-  struct trapframe ptf;
 
   c->proc = 0;
   c->thread = 0;
@@ -505,6 +503,8 @@ scheduler(void)
     int temp_found = 0;
     for(p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
+      struct trapframe *tf;
+      struct trapframe ptf;
       if (p->state == RUNNABLE) {
         // just main thread
         if (p->threads[0].state == THREAD_FREE) {
@@ -614,12 +614,14 @@ sched(void)
 
   intena = mycpu()->intena;
 
-  if ((t = mycpu()->thread) != NULL) {
+  if ((t = mycpu()->thread) != NULL && t->state != THREAD_FREE) {
     // memmove(t->trapframe, mycpu()->proc->trapframe, sizeof(struct trapframe));
-    if (t->trapframe != mycpu()->proc->trapframe) {
-      *(t->trapframe) = *(mycpu()->proc->trapframe);
+    if (t->trapframe != p->trapframe) {
+      *(t->trapframe) = *(p->trapframe);
     }
-    t->state = THREAD_RUNNABLE;
+    if (t->state == THREAD_RUNNING) {
+      t->state = THREAD_RUNNABLE;
+    }
     t->cpu = NULL;
     // if (p->running_threads_count == 0) {
     //   p->state = RUNNABLE;
@@ -916,6 +918,7 @@ int create_thread(void *(*runner)(void *), void *arg, void *stack) {
     // memmove(p->threads[0].trapframe, p->trapframe, sizeof(struct trapframe));
     // p->threads[0].trapframe->ra = -1;
     p->threads[0].cpu = mycpu();
+    mycpu()->thread = &p->threads[0];
   }
 
   for (int i = 0; i < MAX_THREAD; ++i) {
@@ -927,8 +930,9 @@ int create_thread(void *(*runner)(void *), void *arg, void *stack) {
       p->threads[i].trapframe = (struct trapframe *) kalloc();
       p->threads[i].cpu = NULL;
 
-      printf("arg in create thread: %lu\n", (uint64) arg);
+      // printf("arg in create thread: %lu\n", (uint64) arg);
       // initialize trapframe
+      memset(p->threads[i].trapframe, 0, sizeof(struct trapframe));
       p->threads[i].trapframe->epc = (uint64) runner;
       p->threads[i].trapframe->sp = (uint64) stack;  // point to the top of stack
       p->threads[i].trapframe->a0 = (uint64) arg;
@@ -958,7 +962,7 @@ int join_thread(int tid) {
       if (t == NULL) {
         t = &p->threads[0];
       }
-      // printf("thread %d join on %d\n", t->id, tid);
+      printf("thread %d join on %d\n", t->id, tid);
 
       t->join = tid;
       t->state = THREAD_JOINED;
@@ -975,6 +979,50 @@ int join_thread(int tid) {
   return -1;
 }
 
+int thread_cleanup(int tid) {
+  struct proc *p = myproc();
+  struct thread *t;
+
+  acquire(&p->lock);
+
+  for (t = &p->threads[0]; t < &p->threads[MAX_THREAD]; ++t) {
+    if (t->id == tid) {
+
+      if (t->state != THREAD_FREE) {
+        t->cpu = NULL;
+        t->state = THREAD_FREE;
+        kfree(t->trapframe);
+
+        // wakeup joined threads
+        for (int i = 0; i < MAX_THREAD; ++i) {
+          if (p->threads[i].state == THREAD_JOINED && p->threads[i].join == t->id) {
+              p->threads[i].join = 0;
+              p->threads[i].state = THREAD_RUNNABLE;
+          }
+        }
+      }
+
+      release(&p->lock);
+      yield();
+      return 0;
+    }
+  }
+
+  release(&p->lock);
+  return -1;
+}
+
 int stop_thread(int tid) {
-  return 0;
+  struct proc *p = myproc();
+  struct thread *t;
+
+  // stop running thread
+  if (tid == -1) {
+    if ((t = mycpu()->thread) != NULL) {
+      thread_cleanup(t->id);
+    }
+    return 0;
+  }
+
+  return thread_cleanup(tid);
 }
