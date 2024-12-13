@@ -927,7 +927,7 @@ int create_thread(void *(*runner)(void *), void *arg, void *stack) {
       p->threads[i].trapframe = (struct trapframe *) kalloc();
       p->threads[i].cpu = NULL;
 
-      printf("arg in create thread: %lu\n", (uint64) arg);
+      // printf("arg in create thread: %lu\n", (uint64) arg);
       // initialize trapframe
       p->threads[i].trapframe->epc = (uint64) runner;
       p->threads[i].trapframe->sp = (uint64) stack;  // point to the top of stack

@@ -297,19 +297,9 @@ void thread_cleanup() {
     // printf("cleaning up %d\n", t->id);
     t->cpu = NULL;
     t->state = THREAD_FREE;
+    mycpu()->thread = NULL;
     kfree(t->trapframe);
 
-    // main thread cleanup terminates entire process
-    // if (p->threads[0].state == THREAD_FREE) {
-    //   for (int i = 0; i < MAX_THREAD; ++i) {
-    //     p->threads[i].state = THREAD_FREE;
-    //     p->threads[i].cpu = NULL;
-    //     kfree(p->threads[i].trapframe);
-    //   }
-    //   // printf("exiting\n");
-    //   release(&p->lock);
-    //   exit(0);
-    // }
 
     // wakeup joined threads
     for (int i = 0; i < MAX_THREAD; ++i) {

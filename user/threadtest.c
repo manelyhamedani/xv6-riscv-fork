@@ -6,6 +6,7 @@
 #include "user/user.h"
 
 volatile int a = 0, b = 0, c = 0;
+int x = 1, y = 2, z = 3;
 
 void *my_thread(void *arg) {
     // int *number = (int *) arg;
@@ -23,7 +24,7 @@ void *my_thread(void *arg) {
     //         printf("thread c: %d\n", *number);
     //     }
     // }
-    printf("runner function of thread %p\n", (void *) arg);
+    // printf("runner function of thread %d\n", *((int *) arg));
     return 0;
 }
 
@@ -57,7 +58,7 @@ int main() {
     // printf("ta: %d\n", ta);
     int rv = join_thread(ta);
     // printf("join rv: %d\n", rv);
-    // printf("joined to ta finished\n");
+    printf("joined to ta finished\n");
     join_thread(tb);
     // printf("joined to tb finished\n");
     join_thread(tc);
