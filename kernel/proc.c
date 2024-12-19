@@ -934,6 +934,7 @@ int join_thread(int tid) {
 
       release(&p->lock);
       yield();
+      usertrapret();
       return 0;
     }
   }
@@ -981,6 +982,7 @@ int thread_cleanup(int tid) {
 
       release(&p->lock);
       yield();
+      usertrapret();
       return 0;
     }
   }

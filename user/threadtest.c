@@ -31,18 +31,18 @@ int main() {
     uint64 amem[200], bmem[200], cmem[200];
 
     int ta = create_thread(my_thread, (void *) &a, (void *) &amem[199]);
+    // printf("waiting\n");
     stop_thread(ta);
     ta = create_thread(my_thread, (void *) &a, (void *) &amem[199]);
     int tb = create_thread(my_thread, (void *) &b, (void *) &bmem[199]);
     int tc = create_thread(my_thread, (void *) &c, (void *) &cmem[199]);
 
-    // printf("waiting\n");
+    for (int i = 0; i < 10; ++i) {
+        a++;
+    }
     // while (1)
     // {
     //     // printf("wait\n");
-    // }
-    // for (int i = 0; i < 40000000; ++i) {
-
     // }
     
     join_thread(ta);
