@@ -1,7 +1,6 @@
 struct stat;
 struct child_processes;
 struct report_traps;
-struct stack;
 
 // system calls
 int fork(void);

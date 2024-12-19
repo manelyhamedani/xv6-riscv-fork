@@ -23,6 +23,7 @@ void kernelvec();
 
 extern int devintr();
 extern void log_trap();
+extern void cleanup();
 
 void
 trapinit(void)

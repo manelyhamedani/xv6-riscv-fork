@@ -130,25 +130,10 @@ uint64 sys_create_thread(void) {
   void *arg;
   void *stack;
   
-  // void *karg;
-  // struct stack kstack;
-
   argaddr(0, (uint64 *) &runner);
   argaddr(1, (uint64 *) &arg);
   argaddr(2, (uint64 *) &stack); 
-  // argint(2, (uint64) &stack); 
-
-  // if (copyin(myproc()->pagetable, (char *) &kstack, (uint64) stack, sizeof(kstack)) < 0) {
-  //   printf("copyin error in create thread\n");
-  // }
-
-  // if (copyin(myproc()->pagetable, (char *) &karg, (uint64) arg, sizeof(karg)) < 0) {
-  //   printf("copyin error in create thread\n");
-  // }
-
-  // printf("arg: %lu\n", (uint64) arg);
-  // printf("stack: %lu\n", (uint64) stack);
-  // printf("karg: %p\n", (void *) karg);
+  
   return create_thread(runner, (void *) arg, (void *) stack);
 }
 
