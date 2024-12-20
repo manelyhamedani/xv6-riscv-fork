@@ -23,7 +23,7 @@ void kernelvec();
 
 extern int devintr();
 extern void log_trap();
-extern void thread_cleanup();
+extern void cleanup();
 
 void
 trapinit(void)
@@ -79,7 +79,7 @@ usertrap(void)
   } else {
 
     if (p->trapframe->ra == (uint64) -1) {
-      thread_cleanup();
+      cleanup();
       usertrapret();
       return;
     }
@@ -287,30 +287,9 @@ void log_trap() {
   store_trap(r);
 }
 
-void thread_cleanup() {
-  struct proc *p = myproc();
+void cleanup() {
   struct thread *t;
-
-  acquire(&p->lock);
-  
   if ((t = mycpu()->thread) != NULL) {
-    // printf("cleaning up %d\n", t->id);
-    t->cpu = NULL;
-    t->state = THREAD_FREE;
-    mycpu()->thread = NULL;
-    kfree(t->trapframe);
-
-
-    // wakeup joined threads
-    for (int i = 0; i < MAX_THREAD; ++i) {
-      if (p->threads[i].state == THREAD_JOINED && p->threads[i].join == t->id) {
-          p->threads[i].join = 0;
-          p->threads[i].state = THREAD_RUNNABLE;
-      }
-    }
+    thread_cleanup(t->id);
   }
-
-  release(&p->lock);
- 
-  yield();
 }
