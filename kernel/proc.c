@@ -921,10 +921,6 @@ int join_thread(int tid) {
   for (int i = 0; i < MAX_THREAD; ++i) {
     if (p->threads[i].id == tid && p->threads[i].state != THREAD_FREE) {
       t = mycpu()->thread;
-      if (t == NULL) {
-        t = &p->threads[0];
-        mycpu()->thread = t;
-      }
 
       t->join = tid;
       t->state = THREAD_JOINED;

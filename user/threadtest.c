@@ -27,6 +27,13 @@ void *my_thread(void *arg) {
     return 0;
 }
 
+void *stop_myself(void *arg) {
+    printf("Hi! I'm running.\n");
+    stop_thread(-1);
+    printf("This line won't be executed.\n");
+    return 0;
+}
+
 int main() {
     uint64 astack[100], bstack[100], cstack[100];
 
@@ -41,7 +48,9 @@ int main() {
     join_thread(tb);
     join_thread(tc);
 
-    exit(0);
-
+    ta = create_thread(stop_myself, (void *) 0, (void *) &astack[99]);
+    join_thread(ta);
+    
+    return 0;
 }
 
