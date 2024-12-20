@@ -489,7 +489,6 @@ scheduler(void)
       if (p->state == RUNNABLE) {
         // just main thread
         if (p->threads[0].state == THREAD_FREE) {
-          // printf("process %d running\n", p->pid);
           tf = p->trapframe;
           temp_found = 1;
         }
@@ -507,7 +506,6 @@ scheduler(void)
             t = &p->threads[next_thread];
 
             if (t->state == THREAD_RUNNABLE) {
-              // printf("thread %d running\n", t->id);
               t->state = THREAD_RUNNING;
               t->cpu = mycpu();
               c->thread = t;
@@ -927,7 +925,6 @@ int join_thread(int tid) {
         t = &p->threads[0];
         mycpu()->thread = t;
       }
-      printf("thread %d joined on %d\n", t->id, tid);
 
       t->join = tid;
       t->state = THREAD_JOINED;
@@ -975,7 +972,6 @@ int thread_cleanup(int tid) {
           if (p->threads[i].state == THREAD_JOINED && p->threads[i].join == t->id) {
               p->threads[i].join = 0;
               p->threads[i].state = THREAD_RUNNABLE;
-              // printf("thread %d waked up %d\n", tid, p->threads[i].id);
           }
         }
       }
