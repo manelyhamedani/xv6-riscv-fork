@@ -28,13 +28,13 @@ void *my_thread(void *arg) {
 }
 
 int main() {
-    uint64 amem[100], bmem[100], cmem[100];
+    uint64 astack[100], bstack[100], cstack[100];
 
-    int ta = create_thread(my_thread, (void *) &a, (void *) &amem[99]);
+    int ta = create_thread(my_thread, (void *) &a, (void *) &astack[99]);
     stop_thread(ta);
-    ta = create_thread(my_thread, (void *) &a, (void *) &amem[99]);
-    int tb = create_thread(my_thread, (void *) &b, (void *) &bmem[99]);
-    int tc = create_thread(my_thread, (void *) &c, (void *) &cmem[99]);
+    ta = create_thread(my_thread, (void *) &a, (void *) &astack[99]);
+    int tb = create_thread(my_thread, (void *) &b, (void *) &bstack[99]);
+    int tc = create_thread(my_thread, (void *) &c, (void *) &cstack[99]);
     
     printf("joining\n");
     join_thread(ta);
