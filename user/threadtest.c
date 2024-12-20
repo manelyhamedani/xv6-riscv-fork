@@ -10,7 +10,7 @@ volatile int a = 0, b = 0, c = 0;
 void *my_thread(void *arg) {
     int *number = (int *) arg;
 
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 5; ++i) {
         (*number)++;
 
         if (number == &a) {
