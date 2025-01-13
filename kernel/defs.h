@@ -12,6 +12,7 @@ struct child_processes;
 struct report_traps;
 struct thread;
 struct stack;
+struct cpu_usage;
 
 
 // bio.c
@@ -119,6 +120,7 @@ int             create_thread(void *(*)(void *), void *, void *);
 int             join_thread(int);
 int             stop_thread(int);
 int             thread_cleanup(int tid);
+int             cpu_usage(struct cpu_usage *cu);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

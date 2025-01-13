@@ -125,6 +125,14 @@ struct proc {
   struct thread threads[MAX_THREAD];
   int last_running_thread_index;
   int running_threads_count;
+
+  struct cpu_usage cpu_usage;
+};
+
+struct cpu_usage {
+  uint sum_of_ticks;
+  uint start_tick;
+  uint quota;
 };
 
 

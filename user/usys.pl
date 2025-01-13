@@ -43,3 +43,4 @@ entry("sysrep");
 entry("create_thread");
 entry("join_thread");
 entry("stop_thread");
+entry("cpu_usage");
