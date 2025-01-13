@@ -11,9 +11,13 @@
 #include "fs.h"
 #include "kfile.h"
 
+#define INF 0xFFFFFFFF 
+
 struct cpu cpus[NCPU];
 
 struct proc proc[NPROC];
+
+struct spinlock proc_lock;
 
 struct proc *initproc;
 
@@ -60,6 +64,7 @@ procinit(void)
   initlock(&pid_lock, "nextpid");
   initlock(&tid_lock, "nexttid");
   initlock(&wait_lock, "wait_lock");
+  initlock(&proc_lock, "proc_lock");
   for(p = proc; p < &proc[NPROC]; p++) {
       initlock(&p->lock, "proc");
       p->state = UNUSED;
@@ -147,6 +152,7 @@ found:
   p->last_running_thread_index = 0;
   p->running_threads_count = 0;
   p->cpu_usage.start_tick = -1;
+  p->cpu_usage.sum_of_ticks = 0;
   p->cpu_usage.quota = 0;
 
   memset(p->threads, 0, sizeof(p->threads));
@@ -460,16 +466,9 @@ wait(uint64 addr)
   }
 }
 
-
-// Per-CPU process scheduler.
-// Each CPU calls scheduler() after setting itself up.
-// Scheduler never returns.  It loops, doing:
-//  - choose a process to run.
-//  - swtch to start running that process.
-//  - eventually that process transfers control
-//    via swtch back to the scheduler.
+// Round Robin Scheduler
 void
-scheduler(void)
+rr_scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
@@ -536,14 +535,6 @@ scheduler(void)
           //   (uint64)(tf), PTE_R | PTE_W) < 0){
 
           //   printf("trapframe mapping failed\n");
-            
-          // }
-          // if (p->pid == 3) {
-          //   printf("1:\n");
-          //   printf("start_tick: %u\n", p->cpu_usage.start_tick);
-          //   printf("sum_of_ticks: %u\n", p->cpu_usage.sum_of_ticks);
-          //   printf("ticks: %u\n", ticks);
-          // }
           if (p->cpu_usage.start_tick != -1) {
             acquire(&tickslock);
             p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
@@ -575,6 +566,143 @@ scheduler(void)
       asm volatile("wfi");
     }
   }
+}
+
+// Scheduler based on minimum cpu usage
+void
+min_cpu_usage_scheduler(void)
+{
+  struct proc *p;
+  struct cpu *c = mycpu();
+
+  c->proc = 0;
+  c->thread = 0;
+  for(;;){
+    // The most recent process to run may have had interrupts
+    // turned off; enable them to avoid a deadlock if all
+    // processes are waiting.
+    intr_on();
+
+    uint min_cu = INF;
+    struct proc *min_cu_proc = NULL;
+    int found = 0;
+
+    acquire(&proc_lock);
+    for(p = proc; p < &proc[NPROC]; p++) {
+      acquire(&p->lock);
+      if (p->state == RUNNABLE && p->cpu_usage.sum_of_ticks < min_cu) {
+        if (min_cu_proc) {
+          release(&min_cu_proc->lock);
+        }
+        min_cu = p->cpu_usage.sum_of_ticks;
+        min_cu_proc = p;
+      }
+      else {
+        release(&p->lock);
+      }
+    }
+    release(&proc_lock);
+
+    if (min_cu_proc) {
+      // printf("found process %d\n", min_cu_proc->pid);
+      p = min_cu_proc;
+      // acquire(&p->lock);
+      // p->state = RUNNING;
+
+      int temp_found = 0;
+      struct trapframe *tf;
+      struct trapframe ptf;
+
+      // just main thread
+      if (p->threads[0].state == THREAD_FREE) {
+        tf = p->trapframe;
+        temp_found = 1;
+      }
+      else {
+        int next_thread = p->last_running_thread_index;
+        struct thread *t;
+        
+        for (int i = 0; i < MAX_THREAD; ++i) {
+          next_thread++;
+
+          if (next_thread >= MAX_THREAD) {
+            next_thread = 0;
+          }
+          
+          t = &p->threads[next_thread];
+
+          if (t->state == THREAD_RUNNABLE) {
+            t->state = THREAD_RUNNING;
+            t->cpu = mycpu();
+            c->thread = t;
+
+            p->last_running_thread_index = next_thread;
+
+            tf = t->trapframe;
+            temp_found = 1;
+            break;
+          }
+        }
+      }
+      // Switch to chosen process.  It is the process's job
+      // to release its lock and then reacquire it
+      // before jumping back to us.
+      if (temp_found) {
+        // printf("run process %d\n", p->pid);
+        p->state = RUNNING;
+        p->running_threads_count++;
+        c->proc = p;    
+        if (tf != p->trapframe) {
+          ptf = *(p->trapframe);
+          *(p->trapframe) = *tf;
+        }
+        if (p->cpu_usage.start_tick != -1) {
+          acquire(&tickslock);
+          p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
+          release(&tickslock);
+        }
+
+        acquire(&tickslock);
+        p->cpu_usage.start_tick = ticks;
+        release(&tickslock);
+        // printf("before swtch\n");
+        swtch(&c->context, &p->context);
+        // printf("after swtch\n");
+        if (tf != p->trapframe) {
+          *(p->trapframe) = ptf;
+        }
+        // Process is done running for now.
+        // It should have changed its p->state before coming back.
+        c->proc = 0;
+        c->thread = 0;
+        found = 1;
+      
+      }
+      temp_found = 0;
+      // printf("before release\n");
+      release(&p->lock);
+      // printf("after release\n");
+    }
+
+    // release(&proc_lock);
+    if(found == 0) {
+      // nothing to run; stop running on this core until an interrupt.
+      intr_on();
+      asm volatile("wfi");
+    }
+  }
+}
+
+// Per-CPU process scheduler.
+// Each CPU calls scheduler() after setting itself up.
+// Scheduler never returns.  It loops, doing:
+//  - choose a process to run.
+//  - swtch to start running that process.
+//  - eventually that process transfers control
+//    via swtch back to the scheduler.
+void scheduler(void) {
+  // rr_scheduler();
+  min_cpu_usage_scheduler();
 }
 
 // Switch to scheduler.  Must hold only p->lock
