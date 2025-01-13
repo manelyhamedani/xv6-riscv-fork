@@ -997,6 +997,6 @@ int stop_thread(int tid) {
   return thread_cleanup(tid);
 }
 
-int cpu_usage(struct cpu_usage *cu) {
+int cpu_usage() {
 
 }

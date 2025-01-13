@@ -154,15 +154,5 @@ uint64 sys_stop_thread(void) {
 }
 
 uint64 sys_cpu_usage(void) {
-  struct cpu_usage *cu;
-  struct cpu_usage kcu;
-
-  argaddr(0, (uint64 *) &cu);
-  struct proc *p = myproc();
-
-  copyin(p->pagetable, (char *) &kcu, (uint64) cu, sizeof(kcu));
-  int xstat = cpu_usage(&kcu);
-  copyout(p->pagetable, (uint64) cu, (char *) &kcu, sizeof(kcu));
-  
-  return xstat;
+  return cpu_usage();
 }

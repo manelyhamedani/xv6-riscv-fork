@@ -120,7 +120,7 @@ int             create_thread(void *(*)(void *), void *, void *);
 int             join_thread(int);
 int             stop_thread(int);
 int             thread_cleanup(int tid);
-int             cpu_usage(struct cpu_usage *cu);
+int             cpu_usage(void);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
