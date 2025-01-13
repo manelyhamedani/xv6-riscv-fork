@@ -1029,5 +1029,45 @@ int cpu_usage() {
 }
 
 int top(struct top *t) {
+  struct proc *p;
+  int index = 0;
+  t->count = 0;
 
+  for (p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+    if (p->state == UNUSED) {
+      release(&p->lock);
+      continue;
+    }
+    
+    t->count += 1;
+
+    int i;
+    for (i = index - 1; i >= 0; --i) {
+      if (t->processes[i].cpu_usage.sum_of_ticks <= p->cpu_usage.sum_of_ticks) {
+        t->processes[i + 1] = t->processes[i];
+      }
+      else {
+        break;
+      }
+    }
+
+    i += 1;
+    strncpy(t->processes[i].name, p->name, sizeof(p->name));
+    t->processes[i].pid = p->pid;
+    if (p->parent == NULL) {
+      t->processes[i].ppid = 0;
+    }
+    else {
+      t->processes[i].ppid = p->parent->pid;
+    }
+    t->processes[i].state = p->state;
+    t->processes[i].cpu_usage = p->cpu_usage;
+
+    index += 1;
+    release(&p->lock);
+  }
+
+
+  return 0;
 }
