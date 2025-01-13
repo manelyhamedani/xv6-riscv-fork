@@ -574,6 +574,7 @@ min_cpu_usage_scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  int quota_enable = 1;
 
   c->proc = 0;
   c->thread = 0;
@@ -591,6 +592,15 @@ min_cpu_usage_scheduler(void)
     for(p = proc; p < &proc[NPROC]; p++) {
       acquire(&p->lock);
       if (p->state == RUNNABLE && p->cpu_usage.sum_of_ticks < min_cu) {
+        if (p->cpu_usage.quota <= p->cpu_usage.sum_of_ticks) {
+          if (quota_enable) {
+            release(&p->lock);
+            continue;
+          }
+        }
+        else {
+          quota_enable = 1;
+        }
         if (min_cu_proc) {
           release(&min_cu_proc->lock);
         }
@@ -687,6 +697,7 @@ min_cpu_usage_scheduler(void)
     // release(&proc_lock);
     if(found == 0) {
       // nothing to run; stop running on this core until an interrupt.
+      quota_enable = 0;
       intr_on();
       asm volatile("wfi");
     }
