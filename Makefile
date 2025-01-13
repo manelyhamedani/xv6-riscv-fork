@@ -149,6 +149,7 @@ UPROGS=\
 	$U/_threadtest\
 	$U/_cu_test\
 	$U/_top\
+	$U/_quotatest\
 
 fs.img: mkfs/mkfs README.md $(UPROGS)
 	mkfs/mkfs fs.img README.md $(UPROGS)

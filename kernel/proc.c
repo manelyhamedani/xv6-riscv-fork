@@ -1074,6 +1074,38 @@ int top(struct top *t) {
 
 
 int set_cpu_quota(int pid, int quota) {
+  struct proc *current_process = myproc();
+  struct proc *p, *parent, *target_proc = NULL;
 
+
+  for (p = proc; p < &proc[NPROC]; p++) {
+    if (p->pid == pid) {
+      target_proc = p;
+      break;
+    }
+  }
+
+  if (target_proc == NULL) {
+    // process not found.
+    return -1;
+  }
+
+  parent = target_proc;
+
+  while (parent != NULL) {
+    if (parent != current_process) {
+      parent = target_proc->parent;
+    }
+    else {
+      break;
+    }
+  }
+
+  if (parent == NULL) {
+    // process with pid is not in current procces subtree.
+    return -1;
+  }
+
+  target_proc->cpu_usage.quota = quota;
   return 0;
 }
