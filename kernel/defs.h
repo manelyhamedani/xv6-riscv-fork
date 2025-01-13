@@ -13,6 +13,7 @@ struct report_traps;
 struct thread;
 struct stack;
 struct cpu_usage;
+struct top;
 
 
 // bio.c
@@ -119,8 +120,9 @@ int             sysrep(struct report_traps *rt);
 int             create_thread(void *(*)(void *), void *, void *);
 int             join_thread(int);
 int             stop_thread(int);
-int             thread_cleanup(int tid);
+int             thread_cleanup(int);
 int             cpu_usage(void);
+int             top(struct top *);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

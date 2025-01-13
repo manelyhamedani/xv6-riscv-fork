@@ -549,7 +549,7 @@ scheduler(void)
             p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
             release(&tickslock);
           }
-          
+
           acquire(&tickslock);
           p->cpu_usage.start_tick = ticks;
           release(&tickslock);
@@ -1026,4 +1026,8 @@ int cpu_usage() {
   release(&p->lock);
 
   return total_cpu_usage;
+}
+
+int top(struct top *t) {
+
 }

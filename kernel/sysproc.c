@@ -156,3 +156,17 @@ uint64 sys_stop_thread(void) {
 uint64 sys_cpu_usage(void) {
   return cpu_usage();
 }
+
+uint64 sys_top(void) {
+  struct top *t;
+  struct top kt;
+
+  argaddr(0, (uint64 *) &t);
+  struct proc *p = myproc();
+
+  copyin(p->pagetable, (char *) &kt, (uint64) t, sizeof(kt));
+  int xstat = top(&kt);
+  copyout(p->pagetable, (uint64) t, (char *) &kt, sizeof(kt));
+
+  return xstat;
+}

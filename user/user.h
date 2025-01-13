@@ -1,6 +1,7 @@
 struct stat;
 struct child_processes;
 struct report_traps;
+struct top;
 
 // system calls
 int fork(void);
@@ -32,6 +33,7 @@ int create_thread(void *(*)(void *), void *, void *);
 int join_thread(int);
 int stop_thread(int);
 int cpu_usage(void);
+int top(struct top *);
 
 // ulib.c
 int stat(const char*, struct stat*);

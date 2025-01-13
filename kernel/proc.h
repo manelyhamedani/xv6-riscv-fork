@@ -140,6 +140,12 @@ struct proc_info {
   int pid;
   int ppid;
   enum procstate state;
+  struct cpu_usage cpu_usage;
+};
+
+struct top {
+  int count;
+  struct proc_info processes[NPROC];
 };
 
 struct child_processes {
