@@ -29,3 +29,4 @@
 #define SYS_stop_thread     28
 #define SYS_cpu_usage       29
 #define SYS_top             30
+#define SYS_set_cpu_quota   31

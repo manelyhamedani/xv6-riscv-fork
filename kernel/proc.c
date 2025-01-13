@@ -1071,3 +1071,9 @@ int top(struct top *t) {
 
   return 0;
 }
+
+
+int set_cpu_quota(int pid, int quota) {
+
+  return 0;
+}

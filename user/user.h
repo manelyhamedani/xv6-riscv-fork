@@ -34,6 +34,7 @@ int join_thread(int);
 int stop_thread(int);
 int cpu_usage(void);
 int top(struct top *);
+int set_cpu_quota(int, int);
 
 // ulib.c
 int stat(const char*, struct stat*);
