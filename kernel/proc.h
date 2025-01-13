@@ -80,6 +80,12 @@ struct trapframe {
   /* 280 */ uint64 t6;
 };
 
+struct cpu_usage {
+  uint sum_of_ticks;
+  uint start_tick;
+  uint quota;
+};
+
 enum thread_state {
   THREAD_FREE,
   THREAD_RUNNABLE,
@@ -128,13 +134,6 @@ struct proc {
 
   struct cpu_usage cpu_usage;
 };
-
-struct cpu_usage {
-  uint sum_of_ticks;
-  uint start_tick;
-  uint quota;
-};
-
 
 struct proc_info {
   char name[16];

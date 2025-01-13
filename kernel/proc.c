@@ -146,6 +146,8 @@ found:
   p->state = USED;
   p->last_running_thread_index = 0;
   p->running_threads_count = 0;
+  p->cpu_usage.start_tick = -1;
+  p->cpu_usage.quota = 0;
 
   memset(p->threads, 0, sizeof(p->threads));
   
@@ -536,6 +538,22 @@ scheduler(void)
           //   printf("trapframe mapping failed\n");
             
           // }
+          // if (p->pid == 3) {
+          //   printf("1:\n");
+          //   printf("start_tick: %u\n", p->cpu_usage.start_tick);
+          //   printf("sum_of_ticks: %u\n", p->cpu_usage.sum_of_ticks);
+          //   printf("ticks: %u\n", ticks);
+          // }
+          if (p->cpu_usage.start_tick != -1) {
+            acquire(&tickslock);
+            p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
+            release(&tickslock);
+          }
+          
+          acquire(&tickslock);
+          p->cpu_usage.start_tick = ticks;
+          release(&tickslock);
+
           swtch(&c->context, &p->context);
           if (tf != p->trapframe) {
             *(p->trapframe) = ptf;
@@ -998,5 +1016,14 @@ int stop_thread(int tid) {
 }
 
 int cpu_usage() {
+  struct proc *p = myproc();
+  uint64 total_cpu_usage;
 
+  acquire(&p->lock);
+  acquire(&tickslock);
+  total_cpu_usage = p->cpu_usage.sum_of_ticks;
+  release(&tickslock);
+  release(&p->lock);
+
+  return total_cpu_usage;
 }
