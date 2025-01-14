@@ -8,6 +8,17 @@
 
 
 int main() {
+    if (fork() == 0) {
+        for (int i = 0; i < 1000000000; i++) {
+
+        }
+        set_cpu_quota(getpid(), 3);
+        for (int i = 0; i < 1000000000; i++) {
+
+        }
+        printf("I got quota limit! But my total cpu usage is %u\n", cpu_usage());
+        return 0;
+    }
     if (deadfork(10) == 0) {
         // 6 tick
         for (int i = 0; i < 1000000000; i++) {
@@ -15,7 +26,7 @@ int main() {
         }
         printf("I live longer!\n");
         // 6 tick
-        for (int i = 0; i < 1000000000; i++) {
+        for (int i = 0; i < 2000000000; i++) {
 
         }
         printf("I am dead!\n");     // should not print if ttl <= 12
@@ -33,7 +44,7 @@ int main() {
         printf("I had less cpu usage!\n");
         return 0;
     }
-    sleep(20);
+    sleep(30);
     char *argv[] = {"top", 0};
     exec("top", argv);
     printf("exec failed!\n");
