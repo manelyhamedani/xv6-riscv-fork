@@ -47,4 +47,4 @@ entry("cpu_usage");
 entry("top");
 entry("set_cpu_quota");
 entry("deadfork");
-entry("csched");
+entry("ssched");

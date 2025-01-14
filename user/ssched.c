@@ -13,10 +13,10 @@ int main(int argc, char *argv[]) {
     }
 
     if (strcmp("RR", argv[1]) == 0) {
-        csched(RR);
+        ssched(RR);
     }
     else if (strcmp("MinCU", argv[1]) == 0) {
-        csched(MinCU);
+        ssched(MinCU);
     }
     else {
         printf("Scheduler invalid!\n");

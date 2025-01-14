@@ -189,7 +189,7 @@ uint64 sys_deadfork(void) {
   return deadfork(ttl);
 }
 
-uint64 sys_csched(void) {
+uint64 sys_ssched(void) {
   int stype;
 
   argint(0, &stype);

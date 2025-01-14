@@ -37,7 +37,7 @@ int cpu_usage(void);
 int top(struct top *);
 int set_cpu_quota(int, uint);
 int deadfork(uint);
-int csched(enum scheduler);
+int ssched(enum scheduler);
 
 // ulib.c
 int stat(const char*, struct stat*);
