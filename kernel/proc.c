@@ -309,23 +309,21 @@ growproc(int n)
 
 // Create a new process, copying the parent.
 // Sets up child kernel stack to return as if from fork() system call.
-int
-fork(void)
-{
-  int i, pid;
+struct proc *fork_core(void) {
+  int i;
   struct proc *np;
   struct proc *p = myproc();
 
   // Allocate process.
   if((np = allocproc()) == 0){
-    return -1;
+    return NULL;
   }
 
   // Copy user memory from parent to child.
   if(uvmcopy(p->pagetable, np->pagetable, p->sz) < 0){
     freeproc(np);
     release(&np->lock);
-    return -1;
+    return NULL;
   }
   np->sz = p->sz;
 
@@ -343,8 +341,6 @@ fork(void)
 
   safestrcpy(np->name, p->name, sizeof(p->name));
 
-  pid = np->pid;
-
   release(&np->lock);
 
   acquire(&wait_lock);
@@ -355,11 +351,32 @@ fork(void)
   np->state = RUNNABLE;
   release(&np->lock);
 
-  return pid;
+  return np;
 }
 
+// simple fork.
+int
+fork(void)
+{
+  struct proc *np = fork_core();
+
+  if (np) {
+    return np->pid;
+  }
+
+  return -1;
+}
+
+// fork a process and set deadline for new process.
 int deadfork(int deadline) {
-  
+  struct proc *np = fork_core();
+
+  if (np) {
+    np->deadline = deadline;
+    return np->pid;
+  }
+
+  return -1;
 }
 
 // Pass p's abandoned children to init.
