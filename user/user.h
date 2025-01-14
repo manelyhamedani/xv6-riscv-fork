@@ -58,3 +58,10 @@ void free(void*);
 
 // cp.c
 int print_child_processes();
+
+
+extern const char *p_state[];
+
+void adjust_str(const char *str, int limit_size);
+void adjust_int(int n, int limit_size);
+void adjust_hex(int n, int limit_size);

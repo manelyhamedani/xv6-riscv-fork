@@ -6,16 +6,6 @@
 #include "kernel/stat.h"
 #include "user/user.h"
 
-
-const char *p_state[] = {
-    [UNUSED] = "UNUSED",
-    [USED] = "USED",
-    [RUNNING] = "RUNNING",
-    [SLEEPING] = "SLEEPING",
-    [RUNNABLE] = "RUNNABLE",
-    [ZOMBIE] = "ZOMBIE"
-};
-
 int print_child_processes() {
     struct child_processes *cp = malloc(sizeof(struct child_processes));
     int xstat = child_processes(cp);
@@ -24,17 +14,20 @@ int print_child_processes() {
     }
 
     printf("number of children: %d\n", cp->count);
-    printf("PID\t\tPPID\t\tSTATE\t\tNAME\n");
+    printf("PID        PPID        STATE        NAME\n");
     for (int i = 0; i < cp->count; i++) {
-        // column fixing
-        if (cp->processes[i].state == SLEEPING || cp->processes[i].state == RUNNABLE) {
-            printf("%d\t\t%d\t\t%s\t%s\n", cp->processes[i].pid, cp->processes[i].ppid, p_state[cp->processes[i].state], cp->processes[i].name);
-        }
-        else {
-            printf("%d\t\t%d\t\t%s\t\t%s\n", cp->processes[i].pid, cp->processes[i].ppid, p_state[cp->processes[i].state], cp->processes[i].name);
-        }
+        printf("%d", cp->processes[i].pid);
+        adjust_int(cp->processes[i].pid, 11);
+
+        printf("%d", cp->processes[i].ppid);
+        adjust_int(cp->processes[i].ppid, 12);
+
+        printf("%s", p_state[cp->processes[i].state]);
+        adjust_str(p_state[cp->processes[i].state], 13);
+
+        printf("%s\n", cp->processes[i].name);
     }
-    
+
     free(cp);
     return 0;
 }

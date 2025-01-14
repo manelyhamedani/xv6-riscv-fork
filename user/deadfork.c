@@ -8,10 +8,11 @@
 
 
 int main() {
-    if (deadfork(10) == 0) {
+    if (deadfork(100) == 0) {
         // for (int i = 0; i < 4000000000; i++) {
         //     printf("%d\n", i);
         // }
+        sleep(5);
         printf("tick 1\n");
         sleep(1);
         printf("tick 2\n");
@@ -39,8 +40,16 @@ int main() {
         return 0;
     }
     else {
-        wait(NULL);
-        printf("parent exit\n");
+        if (deadfork(50) == 0) {
+            printf("soon to be dead!\n");
+            return 0;
+        }
+        else {
+            sleep(20);
+            char *argv[] = {"top", 0};
+            exec("top", argv);
+            printf("exec failed\n");
+        }
     }
 
     return 0;
