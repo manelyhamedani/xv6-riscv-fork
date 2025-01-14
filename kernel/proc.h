@@ -133,6 +133,7 @@ struct proc {
   int running_threads_count;
 
   struct cpu_usage cpu_usage;
+  uint deadline;
 };
 
 struct proc_info {

@@ -154,6 +154,7 @@ found:
   p->cpu_usage.start_tick = -1;
   p->cpu_usage.sum_of_ticks = 0;
   p->cpu_usage.quota = 0;
+  p->deadline = -1;
 
   memset(p->threads, 0, sizeof(p->threads));
   
@@ -355,6 +356,10 @@ fork(void)
   release(&np->lock);
 
   return pid;
+}
+
+int deadfork(int deadline) {
+  
 }
 
 // Pass p's abandoned children to init.

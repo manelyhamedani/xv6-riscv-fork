@@ -180,3 +180,11 @@ uint64 sys_set_cpu_quota(void) {
 
   return set_cpu_quota(pid, quota);
 }
+
+uint64 sys_deadfork(void) {
+  int deadline;
+
+  argint(0, &deadline);
+
+  return deadfork(deadline);
+}
