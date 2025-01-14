@@ -16,7 +16,7 @@ int main() {
         for (int i = 0; i < 1000000000; i++) {
 
         }
-        printf("I got quota limit! But my total cpu usage is %u\n", cpu_usage());
+        printf("I hit quota limit! My total cpu usage is %u\n", cpu_usage());
         return 0;
     }
     if (deadfork(10) == 0) {
