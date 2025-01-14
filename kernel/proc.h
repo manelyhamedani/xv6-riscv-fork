@@ -101,6 +101,10 @@ struct thread {
   uint join;
 };
 
+enum scheduler {RR, MinCU};
+
+extern enum scheduler sched_type;
+
 enum procstate { UNUSED, USED, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
 // Per-process state

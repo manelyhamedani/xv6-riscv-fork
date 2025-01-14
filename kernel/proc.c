@@ -13,6 +13,8 @@
 
 #define INF 0xFFFFFFFF 
 
+enum scheduler sched_type = MinCU;
+
 struct cpu cpus[NCPU];
 
 struct proc proc[NPROC];
@@ -29,6 +31,8 @@ struct spinlock tid_lock;
 
 extern void forkret(void);
 static void freeproc(struct proc *p);
+void min_cpu_usage_scheduler(void);
+
 
 extern char trampoline[]; // trampoline.S
 
@@ -151,10 +155,10 @@ found:
   p->state = USED;
   p->last_running_thread_index = 0;
   p->running_threads_count = 0;
-  p->cpu_usage.start_tick = -1;
+  p->cpu_usage.start_tick = (uint) -1;
   p->cpu_usage.sum_of_ticks = 0;
   p->cpu_usage.quota = 0;
-  p->deadline = -1;
+  p->deadline = (uint) -1;
 
   memset(p->threads, 0, sizeof(p->threads));
   
@@ -496,6 +500,8 @@ rr_scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
 
+  printf("RR Scheduler\n");
+
   c->proc = 0;
   c->thread = 0;
   for(;;){
@@ -503,6 +509,10 @@ rr_scheduler(void)
     // turned off; enable them to avoid a deadlock if all
     // processes are waiting.
     intr_on();
+
+    if (sched_type == MinCU) {
+      min_cpu_usage_scheduler();
+    }
 
     int found = 0;
     int temp_found = 0;
@@ -558,17 +568,10 @@ rr_scheduler(void)
           //   (uint64)(tf), PTE_R | PTE_W) < 0){
 
           //   printf("trapframe mapping failed\n");
-          if (p->cpu_usage.start_tick != -1) {
-            acquire(&tickslock);
-            p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
-            release(&tickslock);
-          }
-
-          acquire(&tickslock);
           p->cpu_usage.start_tick = ticks;
-          release(&tickslock);
-
           swtch(&c->context, &p->context);
+          p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
+
           if (tf != p->trapframe) {
             *(p->trapframe) = ptf;
           }
@@ -599,6 +602,8 @@ min_cpu_usage_scheduler(void)
   struct cpu *c = mycpu();
   int quota_enable = 1;
 
+  printf("MinCU Scheduler\n");
+
   c->proc = 0;
   c->thread = 0;
   for(;;){
@@ -606,6 +611,10 @@ min_cpu_usage_scheduler(void)
     // turned off; enable them to avoid a deadlock if all
     // processes are waiting.
     intr_on();
+
+    if (sched_type == RR) {
+      rr_scheduler();
+    }
 
     uint min_cu = INF;
     struct proc *min_cu_proc = NULL;
@@ -730,8 +739,10 @@ min_cpu_usage_scheduler(void)
 //  - eventually that process transfers control
 //    via swtch back to the scheduler.
 void scheduler(void) {
-  // rr_scheduler();
-  min_cpu_usage_scheduler();
+  if (sched_type == RR)
+    rr_scheduler();
+  else if (sched_type == MinCU)
+    min_cpu_usage_scheduler();
 }
 
 // Switch to scheduler.  Must hold only p->lock

@@ -31,3 +31,4 @@
 #define SYS_top             30
 #define SYS_set_cpu_quota   31
 #define SYS_deadfork        32
+#define SYS_csched          33

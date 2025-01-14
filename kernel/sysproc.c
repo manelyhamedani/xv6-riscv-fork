@@ -188,3 +188,13 @@ uint64 sys_deadfork(void) {
 
   return deadfork(ttl);
 }
+
+uint64 sys_csched(void) {
+  int stype;
+
+  argint(0, &stype);
+
+  sched_type = stype;
+
+  return 0;
+}

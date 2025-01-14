@@ -2,6 +2,7 @@ struct stat;
 struct child_processes;
 struct report_traps;
 struct top;
+enum scheduler;
 
 // system calls
 int fork(void);
@@ -36,6 +37,7 @@ int cpu_usage(void);
 int top(struct top *);
 int set_cpu_quota(int, uint);
 int deadfork(uint);
+int csched(enum scheduler);
 
 // ulib.c
 int stat(const char*, struct stat*);

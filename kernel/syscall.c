@@ -112,6 +112,7 @@ extern uint64 sys_cpu_usage(void);
 extern uint64 sys_top(void);
 extern uint64 sys_set_cpu_quota(void);
 extern uint64 sys_deadfork(void);
+extern uint64 sys_csched(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -148,6 +149,7 @@ static uint64 (*syscalls[])(void) = {
 [SYS_top]             sys_top,
 [SYS_set_cpu_quota]   sys_set_cpu_quota,
 [SYS_deadfork]        sys_deadfork,
+[SYS_csched]          sys_csched,
 };
 
 void
