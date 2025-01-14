@@ -695,10 +695,7 @@ min_cpu_usage_scheduler(void)
     release(&proc_lock);
 
     if (min_cu_proc) {
-      // printf("found process %d\n", min_cu_proc->pid);
       p = min_cu_proc;
-      // acquire(&p->lock);
-      // p->state = RUNNING;
 
       int temp_found = 0;
       struct trapframe *tf;
@@ -739,7 +736,6 @@ min_cpu_usage_scheduler(void)
       // to release its lock and then reacquire it
       // before jumping back to us.
       if (temp_found) {
-        // printf("run process %d\n", p->pid);
         p->state = RUNNING;
         p->running_threads_count++;
         c->proc = p;    
@@ -747,18 +743,11 @@ min_cpu_usage_scheduler(void)
           ptf = *(p->trapframe);
           *(p->trapframe) = *tf;
         }
-        if (p->cpu_usage.start_tick != -1) {
-          acquire(&tickslock);
-          p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
-          release(&tickslock);
-        }
 
-        acquire(&tickslock);
         p->cpu_usage.start_tick = ticks;
-        release(&tickslock);
-        // printf("before swtch\n");
         swtch(&c->context, &p->context);
-        // printf("after swtch\n");
+        p->cpu_usage.sum_of_ticks += ticks - p->cpu_usage.start_tick;
+        
         if (tf != p->trapframe) {
           *(p->trapframe) = ptf;
         }
@@ -770,12 +759,9 @@ min_cpu_usage_scheduler(void)
       
       }
       temp_found = 0;
-      // printf("before release\n");
       release(&p->lock);
-      // printf("after release\n");
     }
 
-    // release(&proc_lock);
     if(found == 0) {
       // nothing to run; stop running on this core until an interrupt.
       quota_enable = 0;

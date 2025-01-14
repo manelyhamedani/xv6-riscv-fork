@@ -184,9 +184,8 @@ clockintr()
     acquire(&tickslock);
     ticks++;
     wakeup(&ticks);
-    uint current_time = ticks;
+    drop_dead_processes(ticks);
     release(&tickslock);
-    drop_dead_processes(current_time);
   }
 
   // ask for the next timer interrupt. this also clears
