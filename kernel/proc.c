@@ -684,6 +684,9 @@ min_cpu_usage_scheduler(void)
           release(&min_cu_proc->lock);
           min_cu_proc = p;
         }
+        else {
+          release(&p->lock);
+        }
       }
       else {
         release(&p->lock);
