@@ -182,9 +182,9 @@ uint64 sys_set_cpu_quota(void) {
 }
 
 uint64 sys_deadfork(void) {
-  int deadline;
+  int ttl;
 
-  argint(0, &deadline);
+  argint(0, &ttl);
 
-  return deadfork(deadline);
+  return deadfork(ttl);
 }

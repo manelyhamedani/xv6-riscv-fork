@@ -368,11 +368,11 @@ fork(void)
 }
 
 // fork a process and set deadline for new process.
-int deadfork(int deadline) {
+int deadfork(int ttl) {
   struct proc *np = fork_core();
 
   if (np) {
-    np->deadline = deadline;
+    np->deadline = ticks + ttl;
     return np->pid;
   }
 
