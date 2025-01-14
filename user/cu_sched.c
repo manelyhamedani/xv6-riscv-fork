@@ -9,9 +9,11 @@
 
 int main() {
     if (fork() == 0) {
+        // 6 tick
         for (int i = 0; i < 1000000000; i++) {
 
         }
+        // 6 tick
         set_cpu_quota(getpid(), 3);
         for (int i = 0; i < 1000000000; i++) {
 
@@ -25,7 +27,7 @@ int main() {
 
         }
         printf("I live longer!\n");
-        // 6 tick
+        // 12 tick
         for (int i = 0; i < 2000000000; i++) {
 
         }
@@ -33,6 +35,7 @@ int main() {
         return 0;
     }
     if (deadfork(8) == 0) {
+        // 6 tick
         for (int i = 0; i < 1000000000; i++) {
 
         }
