@@ -8,49 +8,35 @@
 
 
 int main() {
-    if (deadfork(100) == 0) {
-        // for (int i = 0; i < 4000000000; i++) {
-        //     printf("%d\n", i);
-        // }
-        sleep(5);
-        printf("tick 1\n");
-        sleep(1);
-        printf("tick 2\n");
-        sleep(1);
-        printf("tick 3\n");
-        sleep(1);
-        printf("tick 4\n");
-        sleep(1);
-        printf("tick 5\n");
-        sleep(1);
-        printf("tick 6\n");
-        sleep(1);
-        printf("tick 7\n");
-        sleep(1);
-        printf("tick 8\n");
-        sleep(1);
-        printf("tick 9\n");
-        sleep(1);
-        printf("tick 10\n");
-        sleep(1);
-        printf("tick 11\n");
-        sleep(1);
-        printf("tick 12\n");
-        sleep(1);
+    if (deadfork(10) == 0) {
+        // 6 tick
+        for (int i = 0; i < 1000000000; i++) {
+
+        }
+        printf("I live longer!\n");
+        // 6 tick
+        for (int i = 0; i < 1000000000; i++) {
+
+        }
+        printf("I am dead!\n");     // should not print if ttl <= 12
         return 0;
     }
-    else {
-        if (deadfork(50) == 0) {
-            printf("soon to be dead!\n");
-            return 0;
+    if (deadfork(8) == 0) {
+        for (int i = 0; i < 1000000000; i++) {
+
         }
-        else {
-            sleep(20);
-            char *argv[] = {"top", 0};
-            exec("top", argv);
-            printf("exec failed\n");
-        }
+        printf("soon to be dead!\n");
+        return 0;
     }
+    if (fork() == 0) {
+        sleep(6);
+        printf("I had less cpu usage!\n");
+        return 0;
+    }
+    sleep(20);
+    char *argv[] = {"top", 0};
+    exec("top", argv);
+    printf("exec failed!\n");
 
     return 0;
 }

@@ -16,10 +16,7 @@ int main() {
     }
     uint end_tick = uptime();
     cu = cpu_usage();
-    printf("diff: %u\n", end_tick - start_tick);
     printf("second cu: %u\n", cu);
-    sleep(10);
-    cu = cpu_usage();
-    printf("third cu: %u\n", cu);
+    printf("diff: %u\n", end_tick - start_tick);
     return 0;
 }
