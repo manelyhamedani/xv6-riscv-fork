@@ -150,6 +150,7 @@ UPROGS=\
 	$U/_cu_test\
 	$U/_top\
 	$U/_quotatest\
+	$U/_deadfork\
 
 fs.img: mkfs/mkfs README.md $(UPROGS)
 	mkfs/mkfs fs.img README.md $(UPROGS)

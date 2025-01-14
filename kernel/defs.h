@@ -123,8 +123,9 @@ int             stop_thread(int);
 int             thread_cleanup(int);
 int             cpu_usage(void);
 int             top(struct top *);
-int             set_cpu_quota(int, int);
-int             deadfork(int);
+int             set_cpu_quota(int, uint);
+int             deadfork(uint);
+void            drop_dead_processes(uint);
 
 // swtch.S
 void            swtch(struct context*, struct context*);

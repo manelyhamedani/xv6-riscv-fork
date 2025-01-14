@@ -368,7 +368,7 @@ fork(void)
 }
 
 // fork a process and set deadline for new process.
-int deadfork(int ttl) {
+int deadfork(uint ttl) {
   struct proc *np = fork_core();
 
   if (np) {
@@ -861,6 +861,24 @@ wakeup(void *chan)
   }
 }
 
+void drop_dead_processes(uint deadline) {
+  struct proc *p;
+
+  for(p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+    if(p->state != UNUSED && p->state != ZOMBIE) {
+      if (p->deadline != (uint) -1 && p->deadline <= deadline) {
+        p->killed = 1;
+        if(p->state == SLEEPING){
+          // Wake process from sleep().
+          p->state = RUNNABLE;
+        }
+      }
+    }
+    release(&p->lock);
+  }
+}
+
 // Kill the process with the given pid.
 // The victim won't exit until it tries to return
 // to user space (see usertrap() in trap.c).
@@ -1234,7 +1252,7 @@ int top(struct top *t) {
 }
 
 
-int set_cpu_quota(int pid, int quota) {
+int set_cpu_quota(int pid, uint quota) {
   struct proc *current_process = myproc();
   struct proc *p, *parent, *target_proc = NULL;
 
